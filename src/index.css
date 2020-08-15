@@ -1,13 +1,104 @@
+@import "~antd/dist/antd.css";
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.site-layout .site-layout-background {
+    background: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#components-layout-demo-custom-trigger .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
+    color: #1890ff;
+}
+
+#components-layout-demo-custom-trigger .logo {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+}
+
+.site-layout .site-layout-background {
+    background: #fff;
+}
+
+.ant-layout-sider-children {
+    background: rgb(7, 71, 166);
+}
+
+.ant-menu-root.ant-menu-inline {
+    background: rgb(7, 71, 166);
+    color: #ffffff;
+}
+
+.ant-menu.ant-menu-dark, .ant-menu-dark .ant-menu-sub, .ant-menu.ant-menu-dark .ant-menu-sub {
+    background: rgb(7, 71, 166);
+    color: #ffffff;
+}
+
+.ant-layout-content {
+    margin: 0 !important;
+    padding: 10px 10px !important;
+}
+
+
+#icon-drawer-small {
+    display: none;
+}
+
+@media (max-width: 720px) {
+    .ant-layout-sider {
+        display: none;
+    }
+
+    .ant-table {
+        font-size: 10px;
+    }
+
+    .ant-table-pagination-right {
+        float: none;
+        display: flex;
+        justify-content: center;
+    }
+
+
+    .ant-table-thead > tr > th, .ant-table-tbody > tr > td, .ant-table tfoot > tr > th, .ant-table tfoot > tr > td {
+        padding: 10px 10px !important;
+    }
+
+    .ant-table-measure-row {
+        display: none;
+    }
+
+    .ant-list {
+        line-height: 0.5715;
+        font-size: 10px;
+    }
+
+    #icon-drawer-small {
+        display: block;
+    }
+
+    #icon-drawer-big {
+        display: none;
+    }
 }
