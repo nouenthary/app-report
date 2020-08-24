@@ -1,19 +1,24 @@
 import React from "react";
 import {
-    BrowserRouter as Router,
     Switch,
-    Route
+    Route,
 } from "react-router-dom";
-import Report from "./page/report";
+import ReportExport from "page/export/ReportExport";
+import ReportImport from "page/import/ReportImport";
+import ReportImportDetails from "./page/import/ReportImportDetails";
+import {withTranslation} from "react-i18next";
+import "./i18n";
 
 function App() {
     return (
-        <Router>
+        <>
             <Switch>
-                <Route extra path="/" component={Report}/>
+                <Route exact path="/" component={ReportImport}/>
+                <Route path="/export" component={ReportExport}/>
+                <Route path={"/reportImportDetails"} component={ReportImportDetails}/>
             </Switch>
-        </Router>
+        </>
     );
 }
 
-export default App;
+export default withTranslation()(App);

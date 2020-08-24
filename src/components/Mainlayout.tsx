@@ -5,7 +5,6 @@ import {
     MenuFoldOutlined,
     UserOutlined,
     VideoCameraOutlined,
-    UploadOutlined,
 } from '@ant-design/icons';
 import {Link} from "react-router-dom";
 import styled from "styled-components";
@@ -49,13 +48,10 @@ class MainLayout extends React.Component<any, any> {
                     </div>
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                         <Menu.Item key="1" icon={<UserOutlined/>}>
-                            <Link to={`/income`}>Income</Link>
+                            <Link to={`/`}>Import</Link>
                         </Menu.Item>
                         <Menu.Item key="2" icon={<VideoCameraOutlined/>}>
                             <Link to={`/export`}>Export</Link>
-                        </Menu.Item>
-                        <Menu.Item key="3" icon={<UploadOutlined/>}>
-                            <Link to={`/report`}>Report</Link>
                         </Menu.Item>
                     </Menu>
                 </Sider>
