@@ -1,6 +1,6 @@
 import React from "react";
 import MainLayout from "components/Mainlayout";
-import {Table, Tabs, List, Col, Row, Button, Space} from "antd";
+import {Table, Tabs, Button, Space, Card} from "antd";
 import Faker from "faker";
 import moment from "moment";
 import {PrinterOutlined, ExportOutlined} from '@ant-design/icons';
@@ -9,34 +9,35 @@ import ExportExcel from "components/ExportExcel";
 import ReportExportDetails from "./ReportExportDetails";
 import {Container} from "components/Container";
 import {useTranslation} from "react-i18next";
+import ExportPrint from "./ExportPrint";
 
 const data: any[] | undefined = [];
 
 for (let i = 0; i < 50; i++) {
     data.push({
-        key: Faker.random.number(),
         no: Faker.random.number(),
         invoice: Faker.random.number(),
         date: moment(Faker.date.future()).format('L'),
         time: moment(Faker.date.future()).format('LTS'),
         amount: Faker.commerce.price(),
-        description: "...",
+        description: "Note...",
         staff: Faker.name.firstName()
     });
 }
 
-const RowButtonPrint = () => {
+const RowButtonPrint = (props: any) => {
     return (
         <>
-            <Button><PrinterOutlined/></Button>
+            <Button type={"default"}><PrinterOutlined/> Print</Button>
             <Space size={"large"}/>
-            <Button><ExportOutlined/></Button>
+            <Button><ExportOutlined/> Export</Button>
+            <ExportPrint columns={props.columns} dataSource={props.dataSource}/>
         </>
     )
 }
 
 const ReportTable = () => {
-    let {t} = useTranslation()
+    let {t} = useTranslation();
 
     const columns = [
         {
@@ -78,7 +79,10 @@ const ReportTable = () => {
 
     return (
         <>
-            <RowButtonPrint/>
+            <Card>
+                <RowButtonPrint columns={columns} dataSource={data}/>
+            </Card>
+            <br/>
             <Container>
                 <Table columns={columns} dataSource={data} pagination={{pageSize: 10}} scroll={{x: 720}}/>
             </Container>
@@ -86,46 +90,9 @@ const ReportTable = () => {
     )
 }
 
-const IncomeTable = () => {
-    let faker = Faker
-
-    let incomeDate = [];
-
-    for (let x = 0; x < 20; x++) {
-        incomeDate.push({
-            name: faker.company.companyName(),
-            barcode: 'PKG-' + faker.address.countryCode() + ' | SO-' + faker.address.zipCode(),
-            date: moment(faker.date.future()).format('L'),
-            price: faker.commerce.price()
-        })
-    }
-
-    return (
-        <Container>
-            <List
-                size="large"
-                bordered
-                dataSource={incomeDate}
-                renderItem={income => <List.Item>
-
-                    <Row style={{width: "100%"}}>
-                        <Col span={18}>
-                            <p>{income.name}</p><br/>
-                            <p>{income.barcode}</p><br/>
-                            <p>{income.date}</p>
-                        </Col>
-                        <Col span={6}>
-                            <p style={{color: "salmon"}}>{income.price}</p><br/>
-                            <p style={{color: "skyblue"}}>Payment</p>
-                        </Col>
-                    </Row>
-                </List.Item>}
-            />
-        </Container>
-    )
-}
 
 const ReportExport = () => {
+
     return (
         <MainLayout>
             <Tabs defaultActiveKey="1">
@@ -136,10 +103,6 @@ const ReportExport = () => {
 
                 <Tabs.TabPane tab={"ReportExportDetails"} key="5">
                     <ReportExportDetails/>
-                </Tabs.TabPane>
-
-                <Tabs.TabPane tab={"Income"} key={"2"}>
-                    <IncomeTable/>
                 </Tabs.TabPane>
 
                 <Tabs.TabPane tab={"Print"} key={"3"}>

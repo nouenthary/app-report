@@ -101,4 +101,8 @@ code {
     #icon-drawer-big {
         display: none;
     }
+
+    .ant-tabs-top > .ant-tabs-nav {
+        margin: 0;
+    }
 }

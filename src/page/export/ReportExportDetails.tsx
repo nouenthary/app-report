@@ -7,7 +7,7 @@ import {Container} from "../../components/Container";
 
 let data: any[] | undefined = [];
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 100; i++) {
     data.push({
         key: Faker.random.number(),
         no: Faker.random.number(),
