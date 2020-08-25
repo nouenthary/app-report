@@ -25,6 +25,4 @@ i18n
         }
     }).then(r => r);
 
-console.log(i18n.store.data)
-
 export default i18n;

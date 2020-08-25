@@ -15,6 +15,12 @@ export const menu = [
         text: 'Export',
         link: '/export',
         icon: <VideoCameraOutlined/>
+    },
+    {
+        key: '#',
+        text: 'Customer',
+        link: '/customer',
+        icon: <VideoCameraOutlined/>
     }
 ];
 

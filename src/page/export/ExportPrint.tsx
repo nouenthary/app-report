@@ -22,8 +22,9 @@ class ExportTablePrint extends Component<any, any> {
 
     getTableRow = (data: any) => {
         let row: any = [];
+        let number = 1
         for (let key in data) {
-            row.push(<td key={data.key}>{data[key + ""]}</td>)
+            row.push(<td key={data.key + number++}>{data[key + ""]}</td>)
         }
         return row
     }

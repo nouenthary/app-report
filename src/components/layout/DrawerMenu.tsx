@@ -3,15 +3,18 @@ import {Drawer, Menu} from "antd";
 import {Link} from "react-router-dom";
 import {menu} from "./MenuSider";
 
+const key: any = '1';
+const mode: any = 'inline';
+const theme: any = 'light';
+
 const MenuSider = () => {
     return (
         <>
             <Menu
                 style={{width: 256}}
-                defaultSelectedKeys={['1']}
-                defaultOpenKeys={['sub1']}
-                mode="inline"
-                theme={"light"}
+                defaultSelectedKeys={[key]}
+                mode={mode}
+                theme={theme}
             >
                 {menu.map(menuItem => (
                     <Menu.Item key={menuItem.key} icon={menuItem.icon}>
@@ -19,14 +22,6 @@ const MenuSider = () => {
                     </Menu.Item>
                 ))}
             </Menu>
-            <style>
-                {`
-                    .ant-menu-root.ant-menu-inline {
-                         background: none;
-                         color: black;
-                    }
-                `}
-            </style>
         </>
     )
 }

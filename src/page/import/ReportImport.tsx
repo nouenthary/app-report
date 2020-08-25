@@ -5,8 +5,8 @@ import moment from "moment";
 import {Card, Table} from "antd";
 import {Container} from "components/utils/Container";
 import {useTranslation, withTranslation} from "react-i18next";
-import ExportPrint from "../export/ExportPrint";
 import {Link} from 'react-router-dom';
+import {RowButtonPrint} from "../export/ReportExport";
 
 const data: any[] | undefined = [];
 
@@ -22,11 +22,6 @@ for (let i = 0; i < 50; i++) {
     });
 }
 
-const RowButtonPrint = (props: any) => {
-    return (
-        <ExportPrint setColumn={props.columns} setDataSource={props.dataSource}/>
-    )
-}
 
 
 const ReportImportTable = () => {

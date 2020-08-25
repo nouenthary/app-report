@@ -37,23 +37,23 @@ code {
     margin: 16px;
 }
 
-.site-layout .site-layout-background {
-    background: #fff;
-}
+/*.site-layout .site-layout-background {*/
+/*    background: #fff;*/
+/*}*/
 
-.ant-layout-sider-children {
-    background: rgb(7, 71, 166);
-}
+/*.ant-layout-sider-children {*/
+/*    background: rgb(7, 71, 166);*/
+/*}*/
 
-.ant-menu-root.ant-menu-inline {
-    background: rgb(7, 71, 166);
-    color: #ffffff;
-}
+/*.ant-menu-root.ant-menu-inline {*/
+/*    background: rgb(7, 71, 166);*/
+/*    color: #ffffff;*/
+/*}*/
 
-.ant-menu.ant-menu-dark, .ant-menu-dark .ant-menu-sub, .ant-menu.ant-menu-dark .ant-menu-sub {
-    background: rgb(7, 71, 166);
-    color: #ffffff;
-}
+/*.ant-menu.ant-menu-dark, .ant-menu-dark .ant-menu-sub, .ant-menu.ant-menu-dark .ant-menu-sub {*/
+/*    background: rgb(7, 71, 166);*/
+/*    color: #ffffff;*/
+/*}*/
 
 .ant-layout-content {
     margin: 0 !important;

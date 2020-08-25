@@ -1,12 +1,11 @@
 import React from 'react';
 import {Layout} from 'antd';
-import {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-} from '@ant-design/icons';
+import {MenuUnfoldOutlined, MenuFoldOutlined} from '@ant-design/icons';
 import styled from "styled-components";
 import MenuSider from "./MenuSider";
 import DrawerMenu from "./DrawerMenu";
+
+const {Header, Sider, Content} = Layout;
 
 const Title = styled.span`
     padding-left: 20px;
@@ -16,11 +15,19 @@ const Title = styled.span`
     }
 `;
 
-const {Header, Sider, Content} = Layout;
-
+const MainTitle = styled.h1`
+  text-align: center;
+  color: #ffffff;
+`;
 const Height = {
-    height: "100vh"
-}
+    height: '100vh'
+};
+
+const ContentStyle = {
+    margin: '24px 16px',
+    padding: 24,
+    minHeight: 280,
+};
 
 class MainLayout extends React.Component<any, any> {
     state = {
@@ -35,7 +42,7 @@ class MainLayout extends React.Component<any, any> {
     };
 
     onClose = (visible: boolean) => {
-        this.setState({visible: visible})
+        this.setState({visible: visible});
     }
 
     render() {
@@ -43,7 +50,7 @@ class MainLayout extends React.Component<any, any> {
             <Layout style={Height}>
                 <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
                     <div className="logo">
-                        <h1 style={{textAlign: "center", color: "#fff"}}>Main Report</h1>
+                        <MainTitle>Main Report</MainTitle>
                     </div>
                     <MenuSider/>
                 </Sider>
@@ -60,16 +67,10 @@ class MainLayout extends React.Component<any, any> {
                             <MenuUnfoldOutlined/>
                         </span>
 
-                        <Title> Report Management</Title>
+                        <Title>Report Management</Title>
                     </Header>
-                    <Content
-                        // className="site-layout-background"
-                        style={{
-                            margin: '24px 16px',
-                            padding: 24,
-                            minHeight: 280,
-                        }}
-                    >{this.props.children}
+                    <Content style={ContentStyle}>
+                        {this.props.children}
                         <DrawerMenu visible={this.state.visible} onClose={this.onClose}/>
                     </Content>
                 </Layout>

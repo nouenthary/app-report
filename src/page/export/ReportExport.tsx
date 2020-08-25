@@ -21,7 +21,7 @@ for (let i = 0; i < 50; i++) {
     });
 }
 
-const RowButtonPrint = (props: any) => {
+export const RowButtonPrint = (props: any) => {
     return (
         <ExportPrint setColumn={props.columns} setDataSource={props.dataSource}/>
     )

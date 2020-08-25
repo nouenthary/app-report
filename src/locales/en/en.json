@@ -1,10 +1,10 @@
 {
-  "No": "លរ",
-  "Invoice": "វិក្កយបត្រ",
-  "Date": "កាលបរិចេ្ឆទ",
-  "Time": "ពេលវេលា",
-  "Amount": "ចំនួនសរុប",
-  "Description": "បរិយាយ",
-  "Staff": "បុគ្គលិក",
-  "Import Type": "ប្រភេទ"
+  "No": "No",
+  "Invoice": "Invoice",
+  "Date": "Date",
+  "Time": "Time",
+  "Amount": "Amount",
+  "Description": "Description",
+  "Staff": "Staff",
+  "Import Type": "Import Type"
 }
