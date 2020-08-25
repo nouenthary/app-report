@@ -1,13 +1,12 @@
 import React from 'react';
-import {Layout, Menu, Drawer} from 'antd';
+import {Layout} from 'antd';
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
 } from '@ant-design/icons';
-import {Link} from "react-router-dom";
 import styled from "styled-components";
+import MenuSider from "./MenuSider";
+import DrawerMenu from "./DrawerMenu";
 
 const Title = styled.span`
     padding-left: 20px;
@@ -35,8 +34,8 @@ class MainLayout extends React.Component<any, any> {
         });
     };
 
-    onClose = () => {
-        this.setState({visible: false})
+    onClose = (visible: boolean) => {
+        this.setState({visible: visible})
     }
 
     render() {
@@ -46,14 +45,7 @@ class MainLayout extends React.Component<any, any> {
                     <div className="logo">
                         <h1 style={{textAlign: "center", color: "#fff"}}>Main Report</h1>
                     </div>
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                        <Menu.Item key="1" icon={<UserOutlined/>}>
-                            <Link to={`/`}>Import</Link>
-                        </Menu.Item>
-                        <Menu.Item key="2" icon={<VideoCameraOutlined/>}>
-                            <Link to={`/export`}>Export</Link>
-                        </Menu.Item>
-                    </Menu>
+                    <MenuSider/>
                 </Sider>
                 <Layout className="site-layout">
                     <Header className="site-layout-background" style={{paddingLeft: 15}}>
@@ -77,19 +69,8 @@ class MainLayout extends React.Component<any, any> {
                             padding: 24,
                             minHeight: 280,
                         }}
-                    >
-                        {this.props.children}
-
-                        <Drawer title="Basic Drawer"
-                                placement="right"
-                                closable={false}
-                                onClose={this.onClose}
-                                visible={this.state.visible}>
-                            <p>Some contents...</p>
-                            <p>Some contents...</p>
-                            <p>Some contents...</p>
-                        </Drawer>
-
+                    >{this.props.children}
+                        <DrawerMenu visible={this.state.visible} onClose={this.onClose}/>
                     </Content>
                 </Layout>
             </Layout>

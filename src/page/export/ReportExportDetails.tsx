@@ -3,12 +3,12 @@ import Faker from "faker";
 import moment from "moment";
 import {useTranslation} from "react-i18next";
 import {Table} from "antd";
-import {Container} from "components/Container";
-import MainLayout from "components/Mainlayout";
+import {Container} from "components/utils/Container";
+import MainLayout from "components/layout/Mainlayout";
 
 let data: any[] | undefined = [];
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 20; i++) {
     data.push({
         key: Faker.random.number(),
         no: Faker.random.number(),

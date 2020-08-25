@@ -1,9 +1,9 @@
 import React from "react";
-import MainLayout from "components/Mainlayout";
+import MainLayout from "components/layout/Mainlayout";
 import Faker from "faker";
 import moment from "moment";
 import {Card, Table} from "antd";
-import {Container} from "components/Container";
+import {Container} from "components/utils/Container";
 import {useTranslation, withTranslation} from "react-i18next";
 import ExportPrint from "../export/ExportPrint";
 import {Link} from 'react-router-dom';
