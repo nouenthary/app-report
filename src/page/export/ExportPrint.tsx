@@ -1,27 +1,45 @@
 import React, {Component, useRef} from 'react';
 import ReactToPrint from "react-to-print";
 import {Button} from "antd";
-import {PrinterOutlined} from '@ant-design/icons';
+import {PrinterOutlined, ExportOutlined} from '@ant-design/icons';
 import "./index.css";
+import styled from 'styled-components';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+
+const ReportTitle = styled.div`
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+`;
+
+const Text = styled.p`
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+`;
+
+const TableHidden: string = 'none';
 
 class ExportTablePrint extends Component<any, any> {
 
     getTableRow = (data: any) => {
-        let row = [];
+        let row: any = [];
         for (let key in data) {
-            row.push(<td>{data[key + ""]}</td>)
+            row.push(<td key={data.key}>{data[key + ""]}</td>)
         }
         return row
     }
 
     render() {
         return (
-            <>
+            <div>
+                <ReportTitle>
+                    Report Export Products
+                    <Text>Welcome to our report...</Text>
+                </ReportTitle>
                 <table id="report-import">
                     <thead>
-                    <tr>
+                    <tr style={{background: "#ddd"}}>
                         {this.props.getColumns && this.props.getColumns.map((column: any) => (
-                            <th>{column.title}</th>
+                            <th key={column.title}>{column.title}</th>
                         ))}
                     </tr>
                     </thead>
@@ -33,24 +51,47 @@ class ExportTablePrint extends Component<any, any> {
                     ))}
                     </tbody>
                 </table>
-            </>
+            </div>
         );
     }
 }
 
+interface ExportDocument {
+    buttonPrint?: boolean;
+    buttonExcel?: boolean;
+    setColumn?: any;
+    setDataSource?: any;
+}
 
-const ExportPrint = (props: any) => {
+const ExportPrint = (props: ExportDocument) => {
     let componentRef: any = useRef(null);
+    let ButtonPrint: boolean = props.buttonPrint === false ? props.buttonPrint : true;
+    let ButtonExcel: boolean = props.buttonExcel === false ? props.buttonExcel : true;
     return (
         <>
+            {ButtonPrint &&
             <ReactToPrint
                 trigger={() => <Button type={"default"}><PrinterOutlined/> Print</Button>}
                 content={() => componentRef}
-            />
-            <div style={{display: 'none'}}>
+            />}
+
+            {ButtonExcel &&
+            <ReactHTMLTableToExcel
+                className="btn btn-info"
+                table="report-import"
+                filename="ReportExcel"
+                sheet="Sheet"
+                buttonText={<Button type={"primary"} style={{
+                    background: '#28A745',
+                    borderColor: '#28A745'
+                }}>
+                    <ExportOutlined/> Export</Button>}
+            />}
+
+            <div style={{display: TableHidden}}>
                 <ExportTablePrint
-                    getColumns={props.columns}
-                    getDataSource={props.dataSource}
+                    getColumns={props.setColumn}
+                    getDataSource={props.setDataSource}
                     ref={el => (componentRef = el)}
                 />
             </div>

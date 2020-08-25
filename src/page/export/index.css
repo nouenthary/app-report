@@ -1,19 +1,26 @@
 #report-import {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  text-align: center;
+    font-family: 'Roboto', sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
 }
 
+
 #report-import td, #report-import th {
-  border: 1px solid #ddd;
-  padding: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
 }
 
 #report-import tr:nth-child(even) {
-  background-color: #f2f2f2;
+    background-color: #f2f2f2;
 }
 
 #report-import tr:hover {
-  background-color: #ddd;
+    background-color: #ddd;
+}
+
+/*override btn style print excel*/
+.btn-info {
+    border: none;
+    background: transparent;
 }

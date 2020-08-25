@@ -3,7 +3,8 @@ import Faker from "faker";
 import moment from "moment";
 import {useTranslation} from "react-i18next";
 import {Table} from "antd";
-import {Container} from "../../components/Container";
+import {Container} from "components/Container";
+import MainLayout from "components/Mainlayout";
 
 let data: any[] | undefined = [];
 
@@ -67,9 +68,11 @@ const ReportExportDetails = () => {
         },
     ];
     return (
-        <Container>
-            <Table columns={column} dataSource={data} pagination={{pageSize: 10}} scroll={{x: 720}}/>
-        </Container>
+        <MainLayout>
+            <Container>
+                <Table columns={column} dataSource={data} pagination={{pageSize: 10}} scroll={{x: 720}}/>
+            </Container>
+        </MainLayout>
     )
 }
 

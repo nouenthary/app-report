@@ -105,4 +105,12 @@ code {
     .ant-tabs-top > .ant-tabs-nav {
         margin: 0;
     }
+
+    .ant-card-body {
+        padding: 0;
+    }
+
+    .ant-btn {
+        font-size: 12px;
+    }
 }

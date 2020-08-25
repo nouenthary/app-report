@@ -3,6 +3,9 @@ import {initReactI18next} from "react-i18next";
 import en from "./locales/en/en.json";
 import kh from './locales/kh/kh.json';
 
+const DefaultLanguage: string = 'kh';
+const FallBackLanguage: string = 'en';
+
 i18n
     .use(initReactI18next)
     .init({
@@ -14,8 +17,8 @@ i18n
                 translation: kh
             }
         },
-        lng: "kh",
-        fallbackLng: "en",
+        lng: DefaultLanguage,
+        fallbackLng: FallBackLanguage,
 
         interpolation: {
             escapeValue: false

@@ -1,12 +1,8 @@
 import React from "react";
 import MainLayout from "components/Mainlayout";
-import {Table, Tabs, Button, Space, Card} from "antd";
+import {Table, Card} from "antd";
 import Faker from "faker";
 import moment from "moment";
-import {PrinterOutlined, ExportOutlined} from '@ant-design/icons';
-import Print from "components/PrintTable";
-import ExportExcel from "components/ExportExcel";
-import ReportExportDetails from "./ReportExportDetails";
 import {Container} from "components/Container";
 import {useTranslation} from "react-i18next";
 import ExportPrint from "./ExportPrint";
@@ -27,12 +23,7 @@ for (let i = 0; i < 50; i++) {
 
 const RowButtonPrint = (props: any) => {
     return (
-        <>
-            <Button type={"default"}><PrinterOutlined/> Print</Button>
-            <Space size={"large"}/>
-            <Button><ExportOutlined/> Export</Button>
-            <ExportPrint columns={props.columns} dataSource={props.dataSource}/>
-        </>
+        <ExportPrint setColumn={props.columns} setDataSource={props.dataSource}/>
     )
 }
 
@@ -44,6 +35,7 @@ const ReportTable = () => {
             title: t('No'),
             dataIndex: 'no',
             width: 100,
+            render: (text: React.ReactNode) => <a href={"/ReportExportDetails/" + 1276923}>{text}</a>
         },
         {
             title: t('Invoice'),
@@ -82,9 +74,8 @@ const ReportTable = () => {
             <Card>
                 <RowButtonPrint columns={columns} dataSource={data}/>
             </Card>
-            <br/>
             <Container>
-                <Table columns={columns} dataSource={data} pagination={{pageSize: 10}} scroll={{x: 720}}/>
+                <Table columns={columns} dataSource={data} rowKey={"no"} pagination={{pageSize: 10}} scroll={{x: 720}}/>
             </Container>
         </>
     )
@@ -92,28 +83,9 @@ const ReportTable = () => {
 
 
 const ReportExport = () => {
-
     return (
         <MainLayout>
-            <Tabs defaultActiveKey="1">
-
-                <Tabs.TabPane tab={"ReportExport"} key={"1"}>
-                    <ReportTable/>
-                </Tabs.TabPane>
-
-                <Tabs.TabPane tab={"ReportExportDetails"} key="5">
-                    <ReportExportDetails/>
-                </Tabs.TabPane>
-
-                <Tabs.TabPane tab={"Print"} key={"3"}>
-                    <Print/>
-                </Tabs.TabPane>
-
-                <Tabs.TabPane tab={"Excel"} key={"4"}>
-                    <ExportExcel/>
-                </Tabs.TabPane>
-
-            </Tabs>
+            <ReportTable/>
         </MainLayout>
     )
 }

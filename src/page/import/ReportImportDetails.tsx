@@ -4,7 +4,7 @@ import moment from "moment";
 import {Table} from "antd";
 import {useTranslation} from "react-i18next";
 import {Container} from "components/Container";
-
+import MainLayout from "components/Mainlayout";
 
 const data: any[] | undefined = [];
 
@@ -67,9 +67,11 @@ const ReportImportDetails = () => {
         },
     ];
     return (
-        <Container>
-            <Table columns={columns} dataSource={data} pagination={{pageSize: 10}} scroll={{x: 720}}/>
-        </Container>
+        <MainLayout>
+            <Container>
+                <Table columns={columns} dataSource={data} pagination={{pageSize: 10}} scroll={{x: 720}}/>
+            </Container>
+        </MainLayout>
     );
 }
 
