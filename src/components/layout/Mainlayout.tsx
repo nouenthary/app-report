@@ -50,7 +50,9 @@ class MainLayout extends React.Component<any, any> {
             <Layout style={Height}>
                 <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
                     <div className="logo">
-                        <MainTitle>Main Report</MainTitle>
+                        <MainTitle>
+                            Main Report
+                        </MainTitle>
                     </div>
                     <MenuSider/>
                 </Sider>

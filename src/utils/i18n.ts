@@ -1,7 +1,7 @@
 import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
-import en from "./locales/en/en.json";
-import kh from './locales/kh/kh.json';
+import en from "../locales/en/en.json";
+import kh from '../locales/kh/kh.json';
 
 const DefaultLanguage: string = 'kh';
 const FallBackLanguage: string = 'en';

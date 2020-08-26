@@ -7,6 +7,7 @@ import {Container} from "components/utils/Container";
 import {useTranslation} from "react-i18next";
 import ExportPrint from "./ExportPrint";
 
+
 const data: any[] | undefined = [];
 
 for (let i = 0; i < 50; i++) {

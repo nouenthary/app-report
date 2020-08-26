@@ -8,7 +8,8 @@ import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 const ReportTitle = styled.div`
   font-family: 'Roboto', sans-serif;
-  font-size: 30px;
+  font-size: 50px;
+  text-align: center;
 `;
 
 const Text = styled.p`
@@ -35,7 +36,9 @@ class ExportTablePrint extends Component<any, any> {
                 <ReportTitle>
                     Report Export Products
                     <Text>Welcome to our report...</Text>
+                    <hr style={{border: "0.5px solid #d9d9d9"}}/>
                 </ReportTitle>
+
                 <table id="report-import">
                     <thead>
                     <tr style={{background: "#ddd"}}>
