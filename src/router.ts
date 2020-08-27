@@ -1,10 +1,10 @@
-import PageImport from "./page/import";
-import PageExport from "./page/export";
-import ReportImportDetails from "./page/import/ReportImportDetails";
-import ReportExportDetails from "./page/export/ReportExportDetails";
-import PageCustomer from "./page/customer";
-import Page404 from "./page/Page404";
-import {MiddlewareRouteProps} from "./components/MiddlewareRoute";
+import PageImport from "page/import";
+import PageExport from "page/export";
+import ReportImportDetails from "page/import/ReportImportDetails";
+import ReportExportDetails from "page/export/ReportExportDetails";
+import PageCustomer from "page/customer";
+import Page404 from "page/Page404";
+import {MiddlewareRouteProps} from "components/MiddlewareRoute";
 
 interface RouterType extends MiddlewareRouteProps {
     path: string;

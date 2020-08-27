@@ -1,7 +1,7 @@
 import React from "react";
 import './index.css';
 import {Button, Card, Input, Space, Table, Menu, Dropdown, Checkbox} from "antd";
-import {RowButtonPrint} from "../../page/export/ReportExport";
+import {RowButtonPrint} from "page/export/ReportExport";
 import {Container} from "../utils/Container";
 import Highlighter from "react-highlight-words";
 import {SearchOutlined, AppstoreOutlined} from '@ant-design/icons';

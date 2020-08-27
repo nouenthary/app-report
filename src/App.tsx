@@ -5,7 +5,7 @@ import {withTranslation} from "react-i18next";
 import {router} from "./router";
 import query from "query-string";
 import {withRouter} from 'react-router'
-import MiddlewareRoute from "./components/MiddlewareRoute";
+import MiddlewareRoute from "components/MiddlewareRoute";
 
 function App(props: any) {
     useEffect(() => {
