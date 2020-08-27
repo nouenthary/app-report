@@ -45,6 +45,11 @@ class MainLayout extends React.Component<any, any> {
         this.setState({visible: visible});
     }
 
+    showDrawer = () => {
+        this.toggle()
+        this.setState({visible: true})
+    }
+
     render() {
         return (
             <Layout style={Height}>
@@ -61,13 +66,14 @@ class MainLayout extends React.Component<any, any> {
                         <span id="icon-drawer-big">
                             {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                                 className: 'trigger',
-                                onClick: this.toggle,
+                                // onClick: this.toggle
+                                onClick: () => this.showDrawer()
                             })}
                         </span>
 
-                        <span id="icon-drawer-small" onClick={() => this.setState({visible: true})}>
-                            <MenuUnfoldOutlined/>
-                        </span>
+                        {/*<span id="icon-drawer-small" onClick={() => this.setState({visible: true})}>*/}
+                        {/*    <MenuUnfoldOutlined/>*/}
+                        {/*</span>*/}
 
                         <Title>Report Management</Title>
                     </Header>

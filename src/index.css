@@ -38,6 +38,15 @@ code {
     margin: 16px;
 }
 
+/*hide sider*/
+.ant-layout-sider {
+    display: none;
+}
+
+/*.ant-drawer-content{*/
+/*    background: #001529;*/
+/*}*/
+
 /*.site-layout .site-layout-background {*/
 /*    background: #fff;*/
 /*}*/
@@ -62,9 +71,9 @@ code {
 }
 
 
-#icon-drawer-small {
-    display: none;
-}
+/*#icon-drawer-small {*/
+/*    display: none;*/
+/*}*/
 
 @media (max-width: 720px) {
     .ant-layout-sider {
@@ -95,14 +104,12 @@ code {
         font-size: 10px;
     }
 
-    #icon-drawer-small {
-        display: block;
-    }
-
-    #icon-drawer-big {
-        display: none;
-    }
-
+    /*#icon-drawer-small {*/
+    /*    display: block;*/
+    /*}*/
+    /*#icon-drawer-big {*/
+    /*    display: none;*/
+    /*}*/
     .ant-tabs-top > .ant-tabs-nav {
         margin: 0;
     }

@@ -5,6 +5,7 @@ import ReportExportDetails from "page/export/ReportExportDetails";
 import PageCustomer from "page/customer";
 import Page404 from "page/Page404";
 import {MiddlewareRouteProps} from "components/MiddlewareRoute";
+import PageComponent from "./page/test";
 
 interface RouterType extends MiddlewareRouteProps {
     path: string;
@@ -61,6 +62,11 @@ export const router: RouterType[] = [
         middlewares: [
             MiddlewareToken,
         ]
+    },
+    {
+        path: "/test",
+        component: PageComponent,
+        middlewares: []
     },
     {
         path: '*',

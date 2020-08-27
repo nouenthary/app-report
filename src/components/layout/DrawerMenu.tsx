@@ -32,7 +32,7 @@ const DrawerMenu = (props: any) => {
     return (
         <>
             <Drawer title="Report"
-                    placement="right"
+                    placement="left"
                     closable={false}
                     onClose={() => onClose(false)}
                     visible={visible}>

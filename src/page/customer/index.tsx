@@ -40,6 +40,7 @@ class PageCustomer extends React.Component<any, any> {
                 title: 'No',
                 dataIndex: '_id',
                 width: 200,
+                visible: true
             },
             {
                 key: 'name',
@@ -81,9 +82,10 @@ class PageCustomer extends React.Component<any, any> {
                     columns={columns}
                     dataSource={this.state.dataSource}
                     rowKey="_id"
-                    sticky
                     scroll={{x: 720}}
+                    size={'small'}
                 />
+
             </MainLayout>
         )
     }

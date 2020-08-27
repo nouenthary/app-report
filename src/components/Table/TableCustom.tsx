@@ -81,9 +81,7 @@ class TableCustom extends React.Component<any, any> {
                     autoEscape
                     textToHighlight={text ? text.toString() : ''}
                 />
-            ) : (
-                text
-            ),
+            ) : (text),
     });
 
     handleSearch = (selectedKeys: any[], confirm: () => void, dataIndex: any) => {
@@ -102,9 +100,16 @@ class TableCustom extends React.Component<any, any> {
     handleVisibleChange = (flag: any) => {
         this.setState({visible: flag});
     };
+
     handleMenuClick = (e: any) => {
-        this.setState({visible: false});
+        if (e.key === this.state.columns.slice(-1).pop()['dataIndex']) {
+            this.setState({visible: false});
+        }
     };
+
+    handleChangeCheck = (e: any) => {
+        console.log(e.target.value);
+    }
 
     render() {
         const columns = this.state.columns.map((col: any, index: any) => (
@@ -118,16 +123,24 @@ class TableCustom extends React.Component<any, any> {
             }
         ));
 
+       // console.log(columns[0]);
+
         const menu = (
             <Menu onClick={this.handleMenuClick}>
-                <Menu.Item>
-                    <Checkbox>Checkbox</Checkbox>
-                </Menu.Item>
-                <Menu.Item>
-                    <Checkbox>Checkbox</Checkbox>
-                </Menu.Item>
+                {this.state.columns.map((col: any) => (
+                    <Menu.Item>
+                        <Checkbox
+                            value={col.dataIndex}
+                            key={col.dataIndex}
+                            onChange={this.handleChangeCheck}
+                            defaultChecked={true}
+                        >
+                            {col.title}
+                        </Checkbox>
+                    </Menu.Item>
+                ))}
             </Menu>
-        )
+        );
 
         return (
             <>
@@ -137,12 +150,13 @@ class TableCustom extends React.Component<any, any> {
                         overlay={menu}
                         placement="bottomRight"
                         arrow
-                        visible={true}
+                        visible={this.state.visible}
                         onVisibleChange={this.handleVisibleChange}
                     >
                         <Button><AppstoreOutlined/> Column</Button>
                     </Dropdown>
                 </Card>
+
                 <Container>
                     <Table
                         {...this.props}
