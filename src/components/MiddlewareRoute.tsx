@@ -1,9 +1,9 @@
 import React, {FunctionComponent, useEffect, useState} from "react"
 import {Route, RouteProps} from "react-router";
+import Page404 from "../page/Page404";
 
 export interface MiddlewareRouteProps extends RouteProps {
     middlewares?: (() => boolean)[]
-
 }
 
 const MiddlewareRoute: FunctionComponent<MiddlewareRouteProps> = props => {
@@ -23,15 +23,14 @@ const MiddlewareRoute: FunctionComponent<MiddlewareRouteProps> = props => {
             setIsValid(middlewareResult)
 
         }, 0)
-    }, [])
+    }, [middlewares])
 
-    console.log("Render Route ", isValid)
     if (isValid === undefined) {
-        return <h1>Loading</h1>
+        return <></>
     }
 
-    if (isValid === false) {
-        return (<></>)
+    if (!isValid) {
+        return (<Page404/>)
     }
 
     return (
@@ -41,5 +40,4 @@ const MiddlewareRoute: FunctionComponent<MiddlewareRouteProps> = props => {
     )
 }
 
-// @ts-ignore
 export default MiddlewareRoute

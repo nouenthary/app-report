@@ -1,39 +1,19 @@
-import {Resizable} from "react-resizable";
 import React from "react";
 import './index.css';
-import MainLayout from "../layout/Mainlayout";
-import {Card, Table} from "antd";
+import {Button, Card, Input, Space, Table, Menu, Dropdown, Checkbox} from "antd";
 import {RowButtonPrint} from "../../page/export/ReportExport";
 import {Container} from "../utils/Container";
-
-const ResizableTitle = (props: any) => {
-    const {onResize, width, ...restProps} = props;
-
-    if (!width) {
-        return <th {...restProps} />;
-    }
-
-    return (
-        <Resizable
-            width={width}
-            hight={0}
-            handle={
-                <span className="react-resizable-handle"
-                      onClick={e => {
-                          e.stopPropagation();
-                      }}/>
-            }
-            onResize={onResize}
-            draggableOpts={{enableUserSelectHack: false}}
-        >
-            <th {...restProps}/>
-        </Resizable>
-    )
-}
+import Highlighter from "react-highlight-words";
+import {SearchOutlined, AppstoreOutlined} from '@ant-design/icons';
+import ResizableTitle from "./ResizableTitle";
 
 class TableCustom extends React.Component<any, any> {
+
     state = {
-        columns: this.props.columns
+        columns: this.props.columns,
+        searchText: '',
+        searchedColumn: '',
+        visible: false,
     };
 
     components = {
@@ -53,20 +33,115 @@ class TableCustom extends React.Component<any, any> {
         });
     };
 
-    render() {
-        const columns = this.state.columns.map((col: any, index: any) => ({
-            ...col,
-            onHeaderCell: (column: { width: any; }) => ({
-                width: column.width,
-                onResize: this.handleResize(index),
-            }),
-        }));
+    private searchInput: any;
 
+    getColumnSearchProps = (dataIndex: string) => ({
+        filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}: any) => (
+            <div style={{padding: 8}}>
+                <Input
+                    ref={node => {
+                        this.searchInput = node;
+                    }}
+                    placeholder={`Search ${dataIndex}`}
+                    value={selectedKeys[0]}
+                    onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                    onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+                    style={{width: 188, marginBottom: 8, display: 'block'}}
+                />
+                <Space>
+                    <Button
+                        type="primary"
+                        onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+                        icon={<SearchOutlined/>}
+                        size="small"
+                        style={{width: 90}}
+                    >Search
+                    </Button>
+                    <Button onClick={() => this.handleReset(clearFilters)} size="small" style={{width: 90}}>
+                        Reset
+                    </Button>
+                </Space>
+            </div>
+        ),
+        filterIcon: (filtered: any) => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+        onFilter: (value: string, record: { [x: string]: { toString: () => string; }; }) =>
+            record[dataIndex]
+                ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
+                : '',
+        onFilterDropdownVisibleChange: (visible: any) => {
+            if (visible) {
+                setTimeout(() => this.searchInput.select(), 100);
+            }
+        },
+        render: (text: { toString: () => string; }) =>
+            this.state.searchedColumn === dataIndex ? (
+                <Highlighter
+                    highlightStyle={{backgroundColor: '#ffc069', padding: 0}}
+                    searchWords={[this.state.searchText]}
+                    autoEscape
+                    textToHighlight={text ? text.toString() : ''}
+                />
+            ) : (
+                text
+            ),
+    });
+
+    handleSearch = (selectedKeys: any[], confirm: () => void, dataIndex: any) => {
+        confirm();
+        this.setState({
+            searchText: selectedKeys[0],
+            searchedColumn: dataIndex,
+        });
+    };
+
+    handleReset = (clearFilters: () => void) => {
+        clearFilters();
+        this.setState({searchText: ''});
+    };
+
+    handleVisibleChange = (flag: any) => {
+        this.setState({visible: flag});
+    };
+    handleMenuClick = (e: any) => {
+        this.setState({visible: false});
+    };
+
+    render() {
+        const columns = this.state.columns.map((col: any, index: any) => (
+            {
+                ...col,
+                onHeaderCell: (column: { width: any; }) => ({
+                    width: column.width,
+                    onResize: this.handleResize(index),
+                }),
+                ...col['isSearching'] ? this.getColumnSearchProps(col['dataIndex']) : '',
+            }
+        ));
+
+        const menu = (
+            <Menu onClick={this.handleMenuClick}>
+                <Menu.Item>
+                    <Checkbox>Checkbox</Checkbox>
+                </Menu.Item>
+                <Menu.Item>
+                    <Checkbox>Checkbox</Checkbox>
+                </Menu.Item>
+            </Menu>
+        )
 
         return (
-            <MainLayout>
+            <>
                 <Card>
                     <RowButtonPrint columns={columns} dataSource={this.props.dataSource}/>
+                    <Dropdown
+                        overlay={menu}
+                        placement="bottomRight"
+                        arrow
+                        visible={true}
+                        onVisibleChange={this.handleVisibleChange}
+                    >
+                        <Button><AppstoreOutlined/> Column</Button>
+                    </Dropdown>
                 </Card>
                 <Container>
                     <Table
@@ -76,7 +151,7 @@ class TableCustom extends React.Component<any, any> {
                         columns={columns}
                     />
                 </Container>
-            </MainLayout>
+            </>
         );
     }
 }

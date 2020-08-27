@@ -11,20 +11,20 @@ interface RouterType extends MiddlewareRouteProps {
     component: any;
 }
 
-const middleware = (component: any) => {
-    console.log(sessionStorage.getItem('token'))
-    return sessionStorage.getItem('token') ? component : Page404
-}
+// const middleware = (component: any) => {
+//     console.log(sessionStorage.getItem('token'))
+//     return sessionStorage.getItem('token') ? component : Page404
+// }
 
 const MiddlewareToken = () => sessionStorage.getItem('token') !== null
 
-const MiddlewareAsync = (mockResult: boolean) => (): Promise<boolean> => {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(mockResult)
-        }, 2000)
-    })
-}
+// const MiddlewareAsync = (mockResult: boolean) => (): Promise<boolean> => {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             resolve(mockResult)
+//         }, 2000)
+//     })
+// }
 
 export const router: RouterType[] = [
     {

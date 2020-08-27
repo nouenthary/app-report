@@ -1,11 +1,12 @@
 import React from 'react';
 import {fetchApi} from "utils/base_url";
 import TableCustom from "components/Table/TableCustom";
+import MainLayout from "components/layout/Mainlayout";
 
 class PageCustomer extends React.Component<any, any> {
 
     state = {
-        dataSource: []
+        dataSource: [],
     }
 
     componentDidMount(): void {
@@ -45,6 +46,7 @@ class PageCustomer extends React.Component<any, any> {
                 title: "Name",
                 dataIndex: 'name',
                 width: 200,
+                isSearching: true,
             },
             {
                 key: 'phone',
@@ -70,9 +72,20 @@ class PageCustomer extends React.Component<any, any> {
                 title: "Staff",
                 dataIndex: 'staff',
                 width: 200,
-            }
+                isSearching: true
+            },
         ];
-        return <TableCustom columns={columns} dataSource={this.state.dataSource} rowKey="_id"/>
+        return (
+            <MainLayout>
+                <TableCustom
+                    columns={columns}
+                    dataSource={this.state.dataSource}
+                    rowKey="_id"
+                    sticky
+                    scroll={{x: 720}}
+                />
+            </MainLayout>
+        )
     }
 }
 

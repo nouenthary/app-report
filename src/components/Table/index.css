@@ -12,3 +12,18 @@
     cursor: col-resize;
     z-index: 1;
 }
+
+/*remove border table*/
+/*tbody tr.ant-table-row > td.ant-table-cell {*/
+/*    border-right: none !important;*/
+/*}*/
+
+/*table color*/
+/*thead.ant-table-thead > tr > th.ant-table-cell {*/
+/*    background: rgb(68 114 196);*/
+/*    color: #ffffff;*/
+/*}*/
+
+/*tbody tr:nth-child(even) {*/
+/*    background-color: rgb(207 213 234);*/
+/*}*/

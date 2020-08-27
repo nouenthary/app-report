@@ -14,15 +14,18 @@ function App(props: any) {
         if (token.token != null) {
             sessionStorage.setItem('token', token.token);
         }
-
-        // <>{sessionStorage.getItem('token') ? <ReportImport/> : <Page404/>}</>
-    }, [])
+    }, [props.location.search])
 
     return (
         <Switch>
             {router.map(router => (
-                <MiddlewareRoute middlewares={router.middlewares} key={router.path} exact path={router.path}
-                                 component={router.component}/>
+                <MiddlewareRoute
+                    middlewares={router.middlewares}
+                    key={router.path}
+                    exact
+                    path={router.path}
+                    component={router.component}
+                />
             ))}
         </Switch>
     );
