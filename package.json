@@ -10,6 +10,7 @@
     "@types/react-resizable": "^1.7.2",
     "@types/react-router": "^5.1.8",
     "@types/styled-components": "^5.1.2",
+    "@types/uuid": "^8.3.0",
     "antd": "^4.5.2",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
@@ -29,7 +30,8 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-to-print": "^2.9.0",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.1.1",
+    "uuid": "^8.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -62,6 +64,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.5",
     "babel-plugin-module-resolver": "^4.0.0",
+    "prop-types": "^15.7.2",
     "react-scripts": "3.4.1",
     "typescript": "~3.7.2"
   }

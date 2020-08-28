@@ -123,12 +123,12 @@ class TableCustom extends React.Component<any, any> {
             }
         ));
 
-       // console.log(columns[0]);
+        // console.log(columns[0]);
 
         const menu = (
             <Menu onClick={this.handleMenuClick}>
                 {this.state.columns.map((col: any) => (
-                    <Menu.Item>
+                    <Menu.Item key={col.dataIndex}>
                         <Checkbox
                             value={col.dataIndex}
                             key={col.dataIndex}

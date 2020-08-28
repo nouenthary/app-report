@@ -22,8 +22,6 @@ for (let i = 0; i < 50; i++) {
     });
 }
 
-
-
 const ReportImportTable = () => {
     let {t} = useTranslation();
     const columns = [

@@ -5,7 +5,7 @@ import Faker from "faker";
 import moment from "moment";
 import {Container} from "components/utils/Container";
 import {useTranslation} from "react-i18next";
-import ExportPrint from "./ExportPrint";
+import ExportPrint from "components/Table/ExportPrint";
 
 
 const data: any[] | undefined = [];
