@@ -8,20 +8,6 @@ import {useTranslation} from "react-i18next";
 import ExportPrint from "components/Table/ExportPrint";
 
 
-const data: any[] | undefined = [];
-
-for (let i = 0; i < 50; i++) {
-    data.push({
-        no: Faker.random.number(),
-        invoice: Faker.random.number(),
-        date: moment(Faker.date.future()).format('L'),
-        time: moment(Faker.date.future()).format('LTS'),
-        amount: Faker.commerce.price(),
-        description: "Note...",
-        staff: Faker.name.firstName()
-    });
-}
-
 export const RowButtonPrint = (props: any) => {
     return (
         <ExportPrint setColumn={props.columns} setDataSource={props.dataSource}/>
@@ -69,6 +55,20 @@ const ReportTable = () => {
             width: 100,
         },
     ];
+
+    const data: any[] | undefined = [];
+
+    for (let i = 0; i < 100; i++) {
+        data.push({
+            no: Faker.random.number(),
+            invoice: Faker.random.number(),
+            date: moment(Faker.date.future()).format('L'),
+            time: moment(Faker.date.future()).format('LTS'),
+            amount: Faker.commerce.price(),
+            description: "Note...",
+            staff: Faker.name.firstName()
+        });
+    }
 
     return (
         <>

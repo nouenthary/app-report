@@ -123,7 +123,7 @@ class TableCustom extends React.Component<any, any> {
             }
         ));
 
-        // console.log(columns[0]);
+        console.log(columns);
 
         const menu = (
             <Menu onClick={this.handleMenuClick}>

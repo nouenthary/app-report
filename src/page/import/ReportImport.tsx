@@ -10,7 +10,7 @@ import {RowButtonPrint} from "../export/ReportExport";
 
 const data: any[] | undefined = [];
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 100; i++) {
     data.push({
         no: Faker.random.number(),
         date: moment(Faker.date.future()).format('L'),
@@ -21,6 +21,8 @@ for (let i = 0; i < 50; i++) {
         staff: Faker.name.firstName()
     });
 }
+
+// console.log(data)
 
 const ReportImportTable = () => {
     let {t} = useTranslation();

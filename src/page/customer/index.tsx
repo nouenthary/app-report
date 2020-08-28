@@ -76,16 +76,29 @@ class PageCustomer extends React.Component<any, any> {
                 isSearching: true
             },
         ];
+
+        const data: any = [];
+        for (let i = 0; i < 1000; i++) {
+            data.push({
+                _id: i,
+                name: "admin" + i,
+                phone: "123456789" + i,
+                gender: "male" + i,
+                customer_reference_type: 'customer' + i,
+                staff: "admin" + i
+            })
+        }
+
+        const merge = [...this.state.dataSource, ...data]
         return (
             <MainLayout>
                 <TableCustom
                     columns={columns}
-                    dataSource={this.state.dataSource}
+                    dataSource={merge}
                     rowKey="_id"
                     scroll={{x: 720}}
                     size={'small'}
                 />
-
             </MainLayout>
         )
     }

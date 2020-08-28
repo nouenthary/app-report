@@ -1,182 +1,197 @@
 import React from 'react'
-// @ts-ignore
 import EnhanceAntdTable, {
-    newColumnsInterface,
     TableSkeleton
-} from 'enhance-antd-table'
-//@ts-ignore
-import {Tag} from 'antd'
+} from 'enhance-antd-table';
 import 'enhance-antd-table/dist/index.css'
+import Faker from "faker";
+import moment from "moment";
+import {withTranslation} from "react-i18next";
+import {RowButtonPrint} from "../page/export/ReportExport";
+import {Container} from "./utils/Container";
+import {Button, Input, Space} from "antd";
+import Highlighter from "react-highlight-words";
+import {SearchOutlined} from "@ant-design/icons";
+import ResizableTitle from "./Table/ResizableTitle";
 
-// const layout = {
-//     labelCol: {span: 4},
-//     wrapperCol: {span: 18}
-// }
-// const tailLayout = {
-//     wrapperCol: {offset: 0, span: 20}
-// }
-//
-// const formProps = {
-//     layout,
-//     tailLayout
-// }
+class TestTable extends React.Component<any, any> {
 
-const dummy = [
-    {
-        name: 'លីហួរ',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer']
-    },
-    {
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser']
-    },
-    {
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher']
-    },
-    {
-        name: 'LyhourChhen',
-        age: 322,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher']
-    }
-]
+    state = {
+        columns: [],
+        searchText: '',
+        searchedColumn: '',
+        visible: false,
+    };
 
-let data: any[] = []
+    components = {
+        header: {
+            cell: ResizableTitle,
+        },
+    };
 
-for (let i = 0; i < 4; i++) {
-    data.push(...dummy)
-}
+    handleResize = (index: string | number) => (e: any, {size}: any) => {
+        this.setState(({columns}: any) => {
+            const nextColumns: any = [...columns];
+            nextColumns[index] = {
+                ...nextColumns[index],
+                width: size.width,
+            };
+            return {columns: nextColumns};
+        });
+    };
 
-const columns: Array<newColumnsInterface> = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name'
-    },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age'
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address'
-    },
-    {
-        title: 'Tags',
-        key: 'tags',
-        dataIndex: 'tags',
+    private searchInput: any;
 
-        render: (tags: any) => (
-            <div>
-                {tags.map((tag: any, index: number) => {
-                    let color = tag.length > 5 ? 'geekblue' : 'green'
-                    if (tag === 'loser') {
-                        color = 'volcano'
-                    }
-                    return (
-                        <Tag color={color} key={index}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    )
-                })}
+    getColumnSearchProps = (dataIndex: string) => ({
+        filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}: any) => (
+            <div style={{padding: 8}}>
+                <Input
+                    ref={node => {
+                        this.searchInput = node;
+                    }}
+                    placeholder={`Search ${dataIndex}`}
+                    value={selectedKeys[0]}
+                    onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                    onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+                    style={{width: 188, marginBottom: 8, display: 'block'}}
+                />
+                <Space>
+                    <Button
+                        type="primary"
+                        onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+                        icon={<SearchOutlined/>}
+                        size="small"
+                        style={{width: 90}}
+                    >Search
+                    </Button>
+                    <Button onClick={() => this.handleReset(clearFilters)} size="small" style={{width: 90}}>
+                        Reset
+                    </Button>
+                </Space>
             </div>
+        ),
+        filterIcon: (filtered: any) => <SearchOutlined style={{color: filtered ? '#1890ff' : undefined}}/>,
+        onFilter: (value: string, record: { [x: string]: { toString: () => string; }; }) =>
+            record[dataIndex]
+                ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
+                : '',
+        onFilterDropdownVisibleChange: (visible: any) => {
+            if (visible) {
+                setTimeout(() => this.searchInput.select(), 100);
+            }
+        },
+        render: (text: { toString: () => string; }) =>
+            this.state.searchedColumn === dataIndex ? (
+                <Highlighter
+                    highlightStyle={{backgroundColor: '#ffc069', padding: 0}}
+                    searchWords={[this.state.searchText]}
+                    autoEscape
+                    textToHighlight={text ? text.toString() : ''}
+                />
+            ) : (text),
+    });
+
+    handleSearch = (selectedKeys: any[], confirm: () => void, dataIndex: any) => {
+        confirm();
+        this.setState({
+            searchText: selectedKeys[0],
+            searchedColumn: dataIndex,
+        });
+    };
+
+    handleReset = (clearFilters: () => void) => {
+        clearFilters();
+        this.setState({searchText: ''});
+    };
+
+    render() {
+        let {t} = this.props;
+
+        const columns: any = [
+            {
+                title: t('No'),
+                dataIndex: 'no',
+                key: 'no',
+                render: (text: React.ReactNode) => <a href={"/ReportExportDetails/" + 1276923}>{text}</a>,
+                onHeaderCell: () => ({
+                    width: 200,
+                    onResize: this.handleResize('1'),
+                }),
+            },
+            {
+                title: t('Invoice'),
+                dataIndex: 'invoice',
+                key: 'invoice',
+                ...this.getColumnSearchProps('invoice'),
+                sorter: (a: { invoice: number; }, b: { invoice: number; }) => a.invoice - b.invoice,
+            },
+            {
+                title: t('Date'),
+                dataIndex: 'date',
+                key: 'date'
+            },
+            {
+                title: t('Time'),
+                dataIndex: 'time',
+                key: 'time',
+            },
+            {
+                title: t('Amount'),
+                dataIndex: 'amount',
+                key: 'amount',
+                ...this.getColumnSearchProps('amount'),
+                sorter: (a: { amount: number; }, b: { amount: number; }) => a.amount - b.amount,
+            },
+            {
+                title: t('Description'),
+                dataIndex: 'description',
+                key: 'description'
+            },
+            {
+                title: t('Staff'),
+                dataIndex: 'staff',
+                key: 'staff',
+                ...this.getColumnSearchProps('staff')
+            },
+        ];
+
+
+        const data: any[] | undefined = [];
+
+        for (let i = 0; i < 333; i++) {
+            data.push({
+                no: Faker.random.number(),
+                invoice: Faker.random.number(),
+                date: moment(Faker.date.future()).format('L'),
+                time: moment(Faker.date.future()).format('LTS'),
+                amount: Faker.commerce.price(),
+                description: "Note...",
+                staff: Faker.name.firstName()
+            });
+        }
+
+        return (
+            <Container padding={20} height={100}>
+                <TableSkeleton>
+                    <EnhanceAntdTable
+                        name={'exampleTables'}
+                        withColumnsVisibleController={true}
+                        renderCreateButton={
+                            () => <RowButtonPrint columns={columns} dataSource={data}/>
+                        }
+                        newColumns={columns}
+                        newSources={data}
+                        restProps={{
+                            bordered: true,
+                            scroll: {x: 1550},
+                            size: 'small',
+                            rowKey: 'id',
+                            components: this.components
+                        }}
+                    />
+                </TableSkeleton>
+            </Container>
         )
     }
-]
-
-
-const TestTable = () => {
-    return (
-        <TableSkeleton>
-            <EnhanceAntdTable
-                name={'exampleTable'}
-                withColumnsVisibleController={true}
-                // renderCreateButton={({ setDataSource }: any) => {
-                //   setDataSourceRef.current = setDataSource
-                //   return <Button onClick={() => setModal(true)}>Create</Button>
-                // }}
-                // printProps={{
-                //     generateColumnHeaders: (columns, avaiableFonts) => {
-                //         return columns.map((item) => ({
-                //             text: item.title,
-                //             fontSize: 20,
-                //             font: avaiableFonts.kh
-                //         }))
-                //     },
-                //     generateColumnWidths: (columns) => {
-                //         return columns.map((item) =>
-                //             item.dataIndex === 'name' ? 50 : '*'
-                //         )
-                //     },
-                //     generateTableBody: (visibleData: any, avaiableFonts) => {
-                //         const newRecords = visibleData.map(
-                //             (record: { [index: string]: any }) => {
-                //                 let newRow: any[] = []
-                //                 for (let key in record) {
-                //                     newRow.push({
-                //                         text: record[key],
-                //                         fontSize: 20,
-                //                         font: avaiableFonts.kh
-                //                     })
-                //                 }
-                //
-                //                 return newRow
-                //             }
-                //         )
-                //
-                //         return newRecords
-                //     }
-                // }}
-                actionDelete={({record, index}) => ({
-                    onClick: () => console.log('delete ', record, 'at ' + index)
-                })}
-                actionDetails={({record, index}) => ({
-                    onClick: () => console.log(record, 'at ' + index)
-                })}
-                // renderOwnActionMenu={({ record, index }) => (
-                //   <Menu>
-                //     <Menu.Item
-                //       key={uuid()}
-                //       icon={<DeleteOutlined />}
-                //       onClick={() => {
-                //         console.log(record, index, 'hello')
-                //       }}
-                //     >
-                //       Delete
-                //     </Menu.Item>
-                //   </Menu>
-                // )}
-                // renderOwnSearchInput={({setDataSource}) => (
-                //     <Button
-                //         onClick={() => {
-                //             setDataSource((old) => {
-                //                 return old?.length == 0 ? data : []
-                //             })
-                //         }}
-                //     >
-                //         Toggle
-                //     </Button>
-                // )}
-                newColumns={columns}
-                newSources={data}
-                restProps={{
-                    bordered: true,
-                    scroll: {x: 1550},
-                    size: 'small',
-                    rowKey: 'id'
-                }}
-            />
-        </TableSkeleton>
-    )
 }
 
-export default TestTable;
+export default withTranslation()(TestTable);
