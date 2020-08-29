@@ -1,26 +1,33 @@
 import React from "react";
 import {Menu} from "antd";
 import {Link} from "react-router-dom";
-import {UserOutlined, VideoCameraOutlined} from '@ant-design/icons';
+import {UserOutlined, ExportOutlined, ImportOutlined} from '@ant-design/icons';
 
-export const menu = [
+export interface MenuProps {
+    key: string;
+    text: string,
+    link: string;
+    icon: any;
+}
+
+export const menu: MenuProps[] = [
     {
         key: '1',
         text: 'Import',
         link: '/',
-        icon: <UserOutlined/>
+        icon: <ExportOutlined/>
     },
     {
         key: '2',
         text: 'Export',
         link: '/export',
-        icon: <VideoCameraOutlined/>
+        icon: <ImportOutlined/>
     },
     {
-        key: '#',
+        key: '3',
         text: 'Customer',
         link: '/customer',
-        icon: <VideoCameraOutlined/>
+        icon: <UserOutlined/>
     }
 ];
 
@@ -28,10 +35,10 @@ const theme: any = 'dark';
 const mode: any = 'inline';
 const key: any = '1';
 
-const MenuSider = () => {
+const MenuSider = (props: any) => {
     return (
         <Menu theme={theme} mode={mode} defaultSelectedKeys={[key]}>
-            {menu.map(menuItem => (
+            {menu.map((menuItem: MenuProps) => (
                 <Menu.Item key={menuItem.key} icon={menuItem.icon}>
                     <Link to={menuItem.link}>{menuItem.text}</Link>
                 </Menu.Item>

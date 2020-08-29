@@ -7,6 +7,8 @@ import {Container} from "components/utils/Container";
 import {useTranslation, withTranslation} from "react-i18next";
 import {Link} from 'react-router-dom';
 import {RowButtonPrint} from "../export/ReportExport";
+import {PAGINATION} from "../../utils/constrans";
+import {rowSelection} from "../customer";
 
 const data: any[] | undefined = [];
 
@@ -69,8 +71,14 @@ const ReportImportTable = () => {
             <Card>
                 <RowButtonPrint columns={columns} dataSource={data}/>
             </Card>
-            <Container>
-                <Table columns={columns} dataSource={data} rowKey={'no'} pagination={{pageSize: 10}} scroll={{x: 720}}/>
+            <Container height={100}>
+                <Table size={'small'} columns={columns} dataSource={data} rowKey={'no'}
+                       pagination={{pageSize: PAGINATION}} scroll={{x: 720}}
+                       rowSelection={{
+                           ...rowSelection
+                       }}
+                       bordered
+                />
             </Container>
         </>
     )

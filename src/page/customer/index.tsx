@@ -2,6 +2,13 @@ import React from 'react';
 import {fetchApi} from "utils/base_url";
 import TableCustom from "components/Table/TableCustom";
 import MainLayout from "components/layout/Mainlayout";
+import {withTranslation} from "react-i18next";
+
+export const rowSelection = {
+    onChange: (selectedRowKeys: any, selectedRows: any) => {
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    }
+}
 
 class PageCustomer extends React.Component<any, any> {
 
@@ -34,43 +41,50 @@ class PageCustomer extends React.Component<any, any> {
     }
 
     render() {
+        let {t} = this.props
         const columns = [
             {
                 key: '_id',
-                title: 'No',
+                title: t('No'),
                 dataIndex: '_id',
                 width: 200,
                 visible: true
             },
             {
                 key: 'name',
-                title: "Name",
+                title: t("Name"),
                 dataIndex: 'name',
                 width: 200,
+                sorter: (row1: { name: string }, row2: { name: string }) => {
+                    return row1.name.localeCompare(row2.name)
+                },
                 isSearching: true,
             },
             {
                 key: 'phone',
-                title: "Phone",
+                title: t("Phone"),
                 dataIndex: 'phone',
                 sorter: (a: { phone: number; }, b: { phone: number; }) => a.phone - b.phone,
                 width: 200,
             },
             {
                 key: 'gender',
-                title: "Gender",
+                title: t("Gender"),
                 dataIndex: 'gender',
                 width: 200,
+                sorter: (row1: { gender: string }, row2: { gender: string }) => {
+                    return row1.gender.localeCompare(row2.gender)
+                },
             },
             {
                 key: 'customer_reference_type',
-                title: "Type",
+                title: t("Type"),
                 dataIndex: 'customer_reference_type',
                 width: 200,
             },
             {
                 key: 'staff',
-                title: "Staff",
+                title: t("Staff"),
                 dataIndex: 'staff',
                 width: 200,
                 isSearching: true
@@ -78,7 +92,7 @@ class PageCustomer extends React.Component<any, any> {
         ];
 
         const data: any = [];
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 1; i < 1000; i++) {
             data.push({
                 _id: i,
                 name: "admin" + i,
@@ -89,10 +103,15 @@ class PageCustomer extends React.Component<any, any> {
             })
         }
 
-        const merge = [...this.state.dataSource, ...data]
+        const merge = [...this.state.dataSource, ...data];
+
+
         return (
             <MainLayout>
                 <TableCustom
+                    rowSelection={{
+                        ...rowSelection
+                    }}
                     columns={columns}
                     dataSource={merge}
                     rowKey="_id"
@@ -105,4 +124,4 @@ class PageCustomer extends React.Component<any, any> {
 }
 
 
-export default PageCustomer
+export default withTranslation()(PageCustomer)

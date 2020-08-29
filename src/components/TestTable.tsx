@@ -3,8 +3,6 @@ import EnhanceAntdTable, {
     TableSkeleton
 } from 'enhance-antd-table';
 import 'enhance-antd-table/dist/index.css'
-import Faker from "faker";
-import moment from "moment";
 import {withTranslation} from "react-i18next";
 import {RowButtonPrint} from "../page/export/ReportExport";
 import {Container} from "./utils/Container";
@@ -157,15 +155,15 @@ class TestTable extends React.Component<any, any> {
 
         const data: any[] | undefined = [];
 
-        for (let i = 0; i < 333; i++) {
+        for (let i = 1; i < 333; i++) {
             data.push({
-                no: Faker.random.number(),
-                invoice: Faker.random.number(),
-                date: moment(Faker.date.future()).format('L'),
-                time: moment(Faker.date.future()).format('LTS'),
-                amount: Faker.commerce.price(),
+                no: i,
+                invoice: 42343 + i,
+                date: '05/01/2021',
+                time: '11:54:21 AM',
+                amount: 318.00 + i,
                 description: "Note...",
-                staff: Faker.name.firstName()
+                staff: "admin" + i
             });
         }
 

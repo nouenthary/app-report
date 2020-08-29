@@ -3,8 +3,9 @@ import {initReactI18next} from "react-i18next";
 import en from "../locales/en/en.json";
 import kh from '../locales/kh/kh.json';
 
-const DefaultLanguage: string = 'kh';
+export const DefaultLanguage: string | null = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'kh';
 const FallBackLanguage: string = 'en';
+
 
 i18n
     .use(initReactI18next)
@@ -17,7 +18,7 @@ i18n
                 translation: kh
             }
         },
-        lng: DefaultLanguage,
+        lng: DefaultLanguage!,
         fallbackLng: FallBackLanguage,
 
         interpolation: {

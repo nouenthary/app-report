@@ -5,6 +5,8 @@ import {useTranslation} from "react-i18next";
 import {Table} from "antd";
 import {Container} from "components/utils/Container";
 import MainLayout from "components/layout/Mainlayout";
+import {PAGINATION} from "../../utils/constrans";
+import {rowSelection} from "../customer";
 
 let data: any[] | undefined = [];
 
@@ -70,7 +72,12 @@ const ReportExportDetails = () => {
     return (
         <MainLayout>
             <Container>
-                <Table columns={column} dataSource={data} pagination={{pageSize: 10}} scroll={{x: 720}}/>
+                <Table size={"small"} columns={column} dataSource={data} pagination={{pageSize: PAGINATION}}
+                       scroll={{x: 720}} bordered
+                       rowSelection={{
+                           ...rowSelection
+                       }}
+                />
             </Container>
         </MainLayout>
     )

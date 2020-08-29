@@ -6,6 +6,7 @@ import {Container} from "../utils/Container";
 import Highlighter from "react-highlight-words";
 import {SearchOutlined, AppstoreOutlined} from '@ant-design/icons';
 import ResizableTitle from "./ResizableTitle";
+import {PAGINATION} from "utils/constrans";
 
 class TableCustom extends React.Component<any, any> {
 
@@ -123,7 +124,7 @@ class TableCustom extends React.Component<any, any> {
             }
         ));
 
-        console.log(columns);
+        //   console.log(columns);
 
         const menu = (
             <Menu onClick={this.handleMenuClick}>
@@ -163,6 +164,7 @@ class TableCustom extends React.Component<any, any> {
                         bordered
                         components={this.components}
                         columns={columns}
+                        pagination={{pageSize: PAGINATION}}
                     />
                 </Container>
             </>

@@ -6,6 +6,9 @@ import moment from "moment";
 import {Container} from "components/utils/Container";
 import {useTranslation} from "react-i18next";
 import ExportPrint from "components/Table/ExportPrint";
+import {PAGINATION} from "../../utils/constrans";
+import TableCustom from "../../components/Table/TableCustom";
+import {rowSelection} from "../customer";
 
 
 export const RowButtonPrint = (props: any) => {
@@ -76,7 +79,11 @@ const ReportTable = () => {
                 <RowButtonPrint columns={columns} dataSource={data}/>
             </Card>
             <Container>
-                <Table columns={columns} dataSource={data} rowKey={"no"} pagination={{pageSize: 10}} scroll={{x: 720}}/>
+                <Table bordered size={'small'} columns={columns} dataSource={data} rowKey={"no"}
+                       pagination={{pageSize: PAGINATION}} scroll={{x: 720}}
+                       rowSelection={{
+                           ...rowSelection
+                       }}/>
             </Container>
         </>
     )
