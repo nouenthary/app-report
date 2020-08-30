@@ -8,13 +8,13 @@ export const rowSelection = {
     onChange: (selectedRowKeys: any, selectedRows: any) => {
         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
     }
-}
+};
 
 class PageCustomer extends React.Component<any, any> {
 
     state = {
         dataSource: [],
-    }
+    };
 
     componentDidMount(): void {
         fetchApi('/customers', 'GET')
@@ -92,7 +92,7 @@ class PageCustomer extends React.Component<any, any> {
         ];
 
         const data: any = [];
-        for (let i = 1; i < 1000; i++) {
+        for (let i = 1; i < 100; i++) {
             data.push({
                 _id: i,
                 name: "admin" + i,
@@ -109,13 +109,10 @@ class PageCustomer extends React.Component<any, any> {
         return (
             <MainLayout>
                 <TableCustom
-                    rowSelection={{
-                        ...rowSelection
-                    }}
                     columns={columns}
                     dataSource={merge}
                     rowKey="_id"
-                    scroll={{x: 720}}
+                    scroll={{x: 720, y: 'calc(75vh - 4em)'}}
                     size={'small'}
                 />
             </MainLayout>

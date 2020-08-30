@@ -1,8 +1,18 @@
-import {Dropdown, Menu, Tag} from "antd";
+import {Dropdown, Menu} from "antd";
 import {DefaultLanguage} from "utils/i18n";
 import React from "react";
-import {DownOutlined} from "@ant-design/icons";
+import {GlobalOutlined} from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
+import styled from 'styled-components';
+
+const ContainerLanguage = styled.span`
+    float: right;  
+    margin-top: 25px;
+    @media (max-width: 720px){
+        margin-top: 15px;
+        margin-right: 20px;
+    }
+`;
 
 interface TranslateProps {
     key: string;
@@ -26,7 +36,7 @@ const MenuLanguage = () => {
     const handleChange = ({key}: any) => {
         localStorage.setItem('lang', key);
         window.location.reload();
-    }
+    };
     const menu = (
         <Menu onClick={handleChange} style={{width: 100}} defaultSelectedKeys={[DefaultLanguage!]}>
             {translate.map(item => (
@@ -37,11 +47,13 @@ const MenuLanguage = () => {
         </Menu>
     );
     return (
-        <Dropdown overlay={menu}>
+        <ContainerLanguage>
+            <Dropdown overlay={menu}>
             <span className="ant-dropdown-link">
-              <Tag>{DefaultLanguage} <DownOutlined style={{fontSize: 10}}/></Tag>
+               <GlobalOutlined style={{fontSize: 20, float: 'right'}}/>
             </span>
-        </Dropdown>
+            </Dropdown>
+        </ContainerLanguage>
     )
-}
+};
 export default MenuLanguage;

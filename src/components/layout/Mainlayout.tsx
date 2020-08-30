@@ -67,7 +67,6 @@ class MainLayout extends React.Component<any, any> {
                 </Sider>
                 <Layout className="site-layout">
                     <Header className="site-layout-background" style={{paddingLeft: 15}}>
-                        <div>
                         <span id="icon-drawer-big" style={{fontSize: 20}}>
                             {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                                 className: 'trigger',
@@ -79,9 +78,8 @@ class MainLayout extends React.Component<any, any> {
                             {/*    <MenuUnfoldOutlined/>*/}
                             {/*</span>*/}
 
-                            <Title>{t("Report Management")}</Title>
-                            <div style={{float: "right"}}><MenuLanguage/></div>
-                        </div>
+                            {/*<Title>{t("Report Management")}</Title>*/}
+                            <MenuLanguage/>
                     </Header>
                     <Content style={ContentStyle}>
                         {this.props.children}

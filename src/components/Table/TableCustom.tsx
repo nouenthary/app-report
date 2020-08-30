@@ -1,12 +1,20 @@
 import React from "react";
 import './index.css';
-import {Button, Card, Input, Space, Table, Menu, Dropdown, Checkbox} from "antd";
+import {Button, Input, Space, Table, Menu, Dropdown, Checkbox} from "antd";
 import {RowButtonPrint} from "page/export/ReportExport";
 import {Container} from "../utils/Container";
 import Highlighter from "react-highlight-words";
 import {SearchOutlined, AppstoreOutlined} from '@ant-design/icons';
 import ResizableTitle from "./ResizableTitle";
 import {PAGINATION} from "utils/constrans";
+import styled from "styled-components";
+
+const CardHeader = styled.div`
+    width: 100%;
+    background: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+`;
 
 class TableCustom extends React.Component<any, any> {
 
@@ -15,6 +23,7 @@ class TableCustom extends React.Component<any, any> {
         searchText: '',
         searchedColumn: '',
         visible: false,
+        dataSelected: []
     };
 
     components = {
@@ -110,7 +119,7 @@ class TableCustom extends React.Component<any, any> {
 
     handleChangeCheck = (e: any) => {
         console.log(e.target.value);
-    }
+    };
 
     render() {
         const columns = this.state.columns.map((col: any, index: any) => (
@@ -143,10 +152,18 @@ class TableCustom extends React.Component<any, any> {
             </Menu>
         );
 
+        const rowSelection = {
+            onChange: (selectedRowKeys: any, selectedRows: any) => {
+                // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+                this.setState({dataSelected: selectedRows});
+            }
+        };
+
         return (
             <>
-                <Card>
-                    <RowButtonPrint columns={columns} dataSource={this.props.dataSource}/>
+                <CardHeader>
+                    <RowButtonPrint columns={columns}
+                                    dataSource={this.state.dataSelected ? this.state.dataSelected : this.props.dataSource}/>
                     <Dropdown
                         overlay={menu}
                         placement="bottomRight"
@@ -156,7 +173,7 @@ class TableCustom extends React.Component<any, any> {
                     >
                         <Button><AppstoreOutlined/> Column</Button>
                     </Dropdown>
-                </Card>
+                </CardHeader>
 
                 <Container>
                     <Table
@@ -165,6 +182,9 @@ class TableCustom extends React.Component<any, any> {
                         components={this.components}
                         columns={columns}
                         pagination={{pageSize: PAGINATION}}
+                        rowSelection={{
+                            ...rowSelection
+                        }}
                     />
                 </Container>
             </>

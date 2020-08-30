@@ -80,6 +80,11 @@ code {
     z-index: 10;
 }
 
+.ant-table-wrapper {
+    background: #fff;
+}
+
+
 @media (max-width: 720px) {
     .ant-layout-sider {
         display: none;

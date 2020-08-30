@@ -12,10 +12,11 @@ import {rowSelection} from "../customer";
 
 
 export const RowButtonPrint = (props: any) => {
+    //console.log('poprs',props);
     return (
         <ExportPrint setColumn={props.columns} setDataSource={props.dataSource}/>
     )
-}
+};
 
 const ReportTable = () => {
     let {t} = useTranslation();
