@@ -72,11 +72,11 @@ const ReportImportDetails = () => {
         <MainLayout>
             <Container>
                 <Table size={"small"} columns={columns} dataSource={data} pagination={{pageSize: PAGINATION}}
-                       scroll={{x: 720}}
                        rowSelection={{
                            ...rowSelection
                        }}
                        bordered
+                       scroll={{x: 720, y: 'calc(85vh - 4em)'}}
                 />
             </Container>
         </MainLayout>

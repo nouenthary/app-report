@@ -73,10 +73,11 @@ const ReportExportDetails = () => {
         <MainLayout>
             <Container>
                 <Table size={"small"} columns={column} dataSource={data} pagination={{pageSize: PAGINATION}}
-                       scroll={{x: 720}} bordered
+                       bordered
                        rowSelection={{
                            ...rowSelection
                        }}
+                       scroll={{x: 720, y: 'calc(85vh - 4em)'}}
                 />
             </Container>
         </MainLayout>
