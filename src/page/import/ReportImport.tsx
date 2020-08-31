@@ -7,11 +7,12 @@ import {useTranslation, withTranslation} from "react-i18next";
 import {Link} from 'react-router-dom';
 import TableCustom from "components/Table/TableCustom";
 
+export const url = 'http://localhost:3000';
 const data: any[] | undefined = [];
 
 for (let i = 0; i < 100; i++) {
     data.push({
-        no: Faker.random.number(),
+        _id: Faker.random.number(),
         date: moment(Faker.date.future()).format('L'),
         time: moment(Faker.date.future()).format('LTS'),
         amount: Faker.commerce.price(),
@@ -21,13 +22,12 @@ for (let i = 0; i < 100; i++) {
     });
 }
 
-
 const ReportImportTable = () => {
     let {t} = useTranslation();
     const columns = [
         {
             title: t('No'),
-            dataIndex: 'no',
+            dataIndex: '_id',
             width: 100,
             render: (text: React.ReactNode) => (<Link to={'/reportImportDetails/' + 24023}>{text}</Link>)
         },
@@ -62,12 +62,30 @@ const ReportImportTable = () => {
             width: 100,
         },
     ];
+
+    const [state, setState] = React.useState([])
+
+    const fetchData = () => {
+        fetch(url + '/imports')
+            .then(resp => {
+                return resp.json();
+            })
+            .then(r => {
+                setState(r);
+            });
+    }
+
+    React.useEffect(() => {
+        fetchData()
+    }, []);
+
+    console.log(state);
     return (
         <Container height={100}>
             <TableCustom
                 columns={columns}
-                dataSource={data}
-                rowKey="no"
+                dataSource={state ? state : data}
+                rowKey="_id"
             />
         </Container>
     )

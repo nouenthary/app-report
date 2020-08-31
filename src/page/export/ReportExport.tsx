@@ -6,6 +6,21 @@ import {Container} from "components/utils/Container";
 import {useTranslation} from "react-i18next";
 import ExportPrint from "components/Table/ExportPrint";
 import TableCustom from "components/Table/TableCustom";
+import {url} from "../import/ReportImport";
+
+const data: any[] | undefined = [];
+
+for (let i = 0; i < 100; i++) {
+    data.push({
+        no: Faker.random.number(),
+        invoice: Faker.random.number(),
+        date: moment(Faker.date.future()).format('L'),
+        time: moment(Faker.date.future()).format('LTS'),
+        amount: Faker.commerce.price(),
+        description: "Note...",
+        staff: Faker.name.firstName()
+    });
+}
 
 export const RowButtonPrint = (props: any) => {
     return (
@@ -19,7 +34,7 @@ const ReportTable = () => {
     const columns = [
         {
             title: t('No'),
-            dataIndex: 'no',
+            dataIndex: '_id',
             width: 100,
             render: (text: React.ReactNode) => <a href={"/ReportExportDetails/" + 1276923}>{text}</a>
         },
@@ -55,26 +70,28 @@ const ReportTable = () => {
         },
     ];
 
-    const data: any[] | undefined = [];
+    const [state, setState] = React.useState([])
 
-    for (let i = 0; i < 100; i++) {
-        data.push({
-            no: Faker.random.number(),
-            invoice: Faker.random.number(),
-            date: moment(Faker.date.future()).format('L'),
-            time: moment(Faker.date.future()).format('LTS'),
-            amount: Faker.commerce.price(),
-            description: "Note...",
-            staff: Faker.name.firstName()
-        });
+    const fetchDateApi = () => {
+        fetch(url + '/exports')
+            .then(resp => {
+                return resp.json()
+            })
+            .then(r => {
+                setState(r)
+            })
     }
+
+    React.useEffect(() => {
+        fetchDateApi()
+    }, []);
 
     return (
         <Container>
             <TableCustom
                 columns={columns}
-                dataSource={data}
-                rowKey="no"
+                dataSource={state}
+                rowKey="_id"
             />
         </Container>
     )
