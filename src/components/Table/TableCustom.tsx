@@ -4,7 +4,7 @@ import {Button, Input, Space, Table, Menu, Dropdown, Checkbox} from "antd";
 import {RowButtonPrint} from "page/export/ReportExport";
 import {Container} from "../utils/Container";
 import Highlighter from "react-highlight-words";
-import {SearchOutlined, AppstoreOutlined} from '@ant-design/icons';
+import {SearchOutlined, AppstoreOutlined, SettingOutlined} from '@ant-design/icons';
 import ResizableTitle from "./ResizableTitle";
 import {PAGINATION} from "utils/constrans";
 import styled from "styled-components";
@@ -23,7 +23,11 @@ class TableCustom extends React.Component<any, any> {
         searchText: '',
         searchedColumn: '',
         visible: false,
-        dataSelected: []
+        dataSelected: [],
+        checkedColumns: [],
+        initialColumns: [],
+        width: 0, height: 0,
+        loading: true
     };
 
     components = {
@@ -31,6 +35,25 @@ class TableCustom extends React.Component<any, any> {
             cell: ResizableTitle,
         },
     };
+
+    updateDimensions = () => {
+        this.setState({width: window.innerWidth, height: window.innerHeight});
+    };
+
+    componentDidMount() {
+        window.addEventListener('resize', this.updateDimensions);
+
+        this.setState({initialColumns: this.props.columns});
+
+        setTimeout(() => {
+            this.setState({loading: false});
+        }, 1000)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateDimensions);
+    }
+
 
     handleResize = (index: string | number) => (e: any, {size}: any) => {
         this.setState(({columns}: any) => {
@@ -118,8 +141,24 @@ class TableCustom extends React.Component<any, any> {
     };
 
     handleChangeCheck = (e: any) => {
-        console.log(e.target.value);
+        let checkedColumns: any[] = this.state.checkedColumns;
+        if (e.target.checked) {
+            checkedColumns = checkedColumns.filter((id: any) => {
+                return id !== e.target.id;
+            });
+        } else if (!e.target.checked) {
+            checkedColumns.push(e.target.id);
+        }
+
+        let filtered = this.state.initialColumns;
+        for (let i = 0; i < checkedColumns.length; i++)
+            filtered = filtered.filter((el: any) => {
+                return el.dataIndex !== checkedColumns[i];
+            });
+
+        this.setState({columns: filtered, checkedColumns: checkedColumns});
     };
+
 
     render() {
         const columns = this.state.columns.map((col: any, index: any) => (
@@ -133,14 +172,12 @@ class TableCustom extends React.Component<any, any> {
             }
         ));
 
-        //   console.log(columns);
-
         const menu = (
             <Menu onClick={this.handleMenuClick}>
-                {this.state.columns.map((col: any) => (
+                {this.props.columns.map((col: any) => (
                     <Menu.Item key={col.dataIndex}>
                         <Checkbox
-                            value={col.dataIndex}
+                            id={col.dataIndex}
                             key={col.dataIndex}
                             onChange={this.handleChangeCheck}
                             defaultChecked={true}
@@ -154,29 +191,35 @@ class TableCustom extends React.Component<any, any> {
 
         const rowSelection = {
             onChange: (selectedRowKeys: any, selectedRows: any) => {
-                // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
                 this.setState({dataSelected: selectedRows});
             }
         };
 
+        const buttonVisibleColumns: boolean = false;
+
         return (
             <>
                 <CardHeader>
-                    <RowButtonPrint columns={columns}
+                    <RowButtonPrint columns={this.state.columns}
                                     dataSource={this.state.dataSelected ? this.state.dataSelected : this.props.dataSource}/>
                     <Dropdown
                         overlay={menu}
                         placement="bottomRight"
                         arrow
-                        visible={this.state.visible}
                         onVisibleChange={this.handleVisibleChange}
+                        visible={this.state.visible}
                     >
-                        <Button><AppstoreOutlined/> Column</Button>
+                        {buttonVisibleColumns ?
+                            <Button><AppstoreOutlined/>{this.state.width < 720 ? null : 'Column'}</Button> :
+                            <SettingOutlined style={{float: 'right', marginTop: 10}}/>
+                        }
                     </Dropdown>
                 </CardHeader>
 
                 <Container>
                     <Table
+                        loading={this.state.loading}
+                        className="table-customer"
                         {...this.props}
                         bordered
                         components={this.components}

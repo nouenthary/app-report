@@ -9,13 +9,13 @@ import MenuLanguage from "./MenuTranslate";
 
 const {Header, Sider, Content} = Layout;
 
-const Title = styled.span`
-    padding-left: 20px;
-    
-    @media (max-width: 720px){
-        display: none;
-    }
-`;
+// const Title = styled.span`
+//     padding-left: 20px;
+//
+//     @media (max-width: 720px){
+//         display: none;
+//     }
+// `;
 
 const MainTitle = styled.h1`
   text-align: center;
@@ -54,7 +54,7 @@ class MainLayout extends React.Component<any, any> {
     }
 
     render() {
-        let {t} = this.props;
+        // let {t} = this.props;
         return (
             <Layout style={Height}>
                 <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
@@ -74,12 +74,12 @@ class MainLayout extends React.Component<any, any> {
                             })}
                         </span>
 
-                            {/*<span id="icon-drawer-small" onClick={() => this.setState({visible: true})}>*/}
-                            {/*    <MenuUnfoldOutlined/>*/}
-                            {/*</span>*/}
+                        {/*<span id="icon-drawer-small" onClick={() => this.setState({visible: true})}>*/}
+                        {/*    <MenuUnfoldOutlined/>*/}
+                        {/*</span>*/}
 
-                            {/*<Title>{t("Report Management")}</Title>*/}
-                            <MenuLanguage/>
+                        {/*<Title>{t("Report Management")}</Title>*/}
+                        <MenuLanguage/>
                     </Header>
                     <Content style={ContentStyle}>
                         {this.props.children}

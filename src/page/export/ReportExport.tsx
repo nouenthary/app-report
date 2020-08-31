@@ -7,12 +7,10 @@ import {Container} from "components/utils/Container";
 import {useTranslation} from "react-i18next";
 import ExportPrint from "components/Table/ExportPrint";
 import {PAGINATION} from "../../utils/constrans";
-import TableCustom from "../../components/Table/TableCustom";
 import {rowSelection} from "../customer";
 
 
 export const RowButtonPrint = (props: any) => {
-    //console.log('poprs',props);
     return (
         <ExportPrint setColumn={props.columns} setDataSource={props.dataSource}/>
     )
