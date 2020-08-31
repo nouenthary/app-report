@@ -112,8 +112,6 @@ class PageCustomer extends React.Component<any, any> {
                     columns={columns}
                     dataSource={merge}
                     rowKey="_id"
-                    scroll={{x: 720, y: 'calc(75vh - 4em)'}}
-                    size={'small'}
                 />
             </MainLayout>
         )

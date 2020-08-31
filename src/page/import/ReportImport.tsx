@@ -2,13 +2,10 @@ import React from "react";
 import MainLayout from "components/layout/Mainlayout";
 import Faker from "faker";
 import moment from "moment";
-import {Card, Table} from "antd";
 import {Container} from "components/utils/Container";
 import {useTranslation, withTranslation} from "react-i18next";
 import {Link} from 'react-router-dom';
-import {RowButtonPrint} from "../export/ReportExport";
-import {PAGINATION} from "../../utils/constrans";
-import {rowSelection} from "../customer";
+import TableCustom from "components/Table/TableCustom";
 
 const data: any[] | undefined = [];
 
@@ -24,7 +21,6 @@ for (let i = 0; i < 100; i++) {
     });
 }
 
-// console.log(data)
 
 const ReportImportTable = () => {
     let {t} = useTranslation();
@@ -67,20 +63,13 @@ const ReportImportTable = () => {
         },
     ];
     return (
-        <>
-            <Card>
-                <RowButtonPrint columns={columns} dataSource={data}/>
-            </Card>
-            <Container height={100}>
-                <Table size={'small'} columns={columns} dataSource={data} rowKey={'no'}
-                       pagination={{pageSize: PAGINATION}} scroll={{x: 720}}
-                       rowSelection={{
-                           ...rowSelection
-                       }}
-                       bordered
-                />
-            </Container>
-        </>
+        <Container height={100}>
+            <TableCustom
+                columns={columns}
+                dataSource={data}
+                rowKey="no"
+            />
+        </Container>
     )
 }
 

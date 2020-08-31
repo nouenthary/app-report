@@ -1,14 +1,11 @@
 import React from "react";
 import MainLayout from "components/layout/Mainlayout";
-import {Table, Card} from "antd";
 import Faker from "faker";
 import moment from "moment";
 import {Container} from "components/utils/Container";
 import {useTranslation} from "react-i18next";
 import ExportPrint from "components/Table/ExportPrint";
-import {PAGINATION} from "../../utils/constrans";
-import {rowSelection} from "../customer";
-
+import TableCustom from "components/Table/TableCustom";
 
 export const RowButtonPrint = (props: any) => {
     return (
@@ -73,18 +70,13 @@ const ReportTable = () => {
     }
 
     return (
-        <>
-            <Card>
-                <RowButtonPrint columns={columns} dataSource={data}/>
-            </Card>
-            <Container>
-                <Table bordered size={'small'} columns={columns} dataSource={data} rowKey={"no"}
-                       pagination={{pageSize: PAGINATION}} scroll={{x: 720}}
-                       rowSelection={{
-                           ...rowSelection
-                       }}/>
-            </Container>
-        </>
+        <Container>
+            <TableCustom
+                columns={columns}
+                dataSource={data}
+                rowKey="no"
+            />
+        </Container>
     )
 }
 

@@ -228,6 +228,8 @@ class TableCustom extends React.Component<any, any> {
                         rowSelection={{
                             ...rowSelection
                         }}
+                        scroll={{x: 720, y: 'calc(75vh - 4em)'}}
+                        size={'small'}
                     />
                 </Container>
             </>
