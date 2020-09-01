@@ -26,8 +26,8 @@ class TableCustom extends React.Component<any, any> {
         dataSelected: [],
         checkedColumns: [],
         initialColumns: [],
-        width: 0, height: 0,
-        loading: true
+        width: 0,
+        height: 0,
     };
 
     components = {
@@ -44,10 +44,6 @@ class TableCustom extends React.Component<any, any> {
         window.addEventListener('resize', this.updateDimensions);
 
         this.setState({initialColumns: this.props.columns});
-
-        setTimeout(() => {
-            this.setState({loading: false});
-        }, 1000)
     }
 
     componentWillUnmount() {
@@ -218,7 +214,6 @@ class TableCustom extends React.Component<any, any> {
 
                 <Container>
                     <Table
-                        loading={this.state.loading}
                         className="table-customer"
                         {...this.props}
                         bordered

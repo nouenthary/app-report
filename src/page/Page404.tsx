@@ -2,7 +2,6 @@ import React from 'react';
 import {Result} from 'antd';
 
 const Page404 = () => {
-
     return (
         <Result
             status="404"

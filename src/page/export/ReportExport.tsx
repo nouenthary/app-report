@@ -1,24 +1,24 @@
 import React from "react";
 import MainLayout from "components/layout/Mainlayout";
-import Faker from "faker";
-import moment from "moment";
 import {Container} from "components/utils/Container";
 import {useTranslation} from "react-i18next";
 import ExportPrint from "components/Table/ExportPrint";
 import TableCustom from "components/Table/TableCustom";
-import {url} from "../import/ReportImport";
+import {message} from "antd";
+import {fetchApi} from "../../utils/base_url";
+// import {url} from "../import/ReportImport";
 
 const data: any[] | undefined = [];
 
 for (let i = 0; i < 100; i++) {
     data.push({
-        no: Faker.random.number(),
-        invoice: Faker.random.number(),
-        date: moment(Faker.date.future()).format('L'),
-        time: moment(Faker.date.future()).format('LTS'),
-        amount: Faker.commerce.price(),
+        _id: i,
+        invoice: 234032480 + i,
+        date: "11-11-20",
+        time: '4:41:22 PM',
+        amount: 12 + i,
         description: "Note...",
-        staff: Faker.name.firstName()
+        staff: 'John'
     });
 }
 
@@ -55,12 +55,12 @@ const ReportTable = () => {
         },
         {
             title: t('Amount'),
-            dataIndex: 'amount',
+            dataIndex: 'amount.normalized',
             width: 100,
         },
         {
-            title: t('Description'),
-            dataIndex: 'description',
+            title: t('Type'),
+            dataIndex: 'type',
             width: 100,
         },
         {
@@ -71,15 +71,35 @@ const ReportTable = () => {
     ];
 
     const [state, setState] = React.useState([])
+    const [loading, setLoading] = React.useState(false)
 
     const fetchDateApi = () => {
-        fetch(url + '/exports')
-            .then(resp => {
-                return resp.json()
-            })
+        setLoading(true)
+        // fetch(url + '/exports')
+        //     .then(resp => {
+        //         return resp.json();
+        //     })
+        //     .then(r => {
+        //         setState(r);
+        //         setLoading(false);
+        //     })
+        //     .catch(error => {
+        //         message.error(error + '', 50);
+        //     });
+
+        fetchApi("/adjustments?page=0&report=true", "GET")
             .then(r => {
-                setState(r)
+                return r.json()
             })
+            .then(resp => {
+                setState(resp.data)
+                setLoading(false);
+                console.log(resp.data)
+            })
+            .catch(error => {
+                message.error(error + '', 50);
+            });
+
     }
 
     React.useEffect(() => {
@@ -89,6 +109,7 @@ const ReportTable = () => {
     return (
         <Container>
             <TableCustom
+                loading={loading}
                 columns={columns}
                 dataSource={state}
                 rowKey="_id"

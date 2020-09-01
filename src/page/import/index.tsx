@@ -5,7 +5,7 @@ import Page404 from "../Page404";
 import {fetchApi} from "utils/base_url";
 
 const validateToken = () => {
-    return fetchApi("/customers", 'GET');
+    return fetchApi("/suppliers", 'GET');
 }
 
 const PageImport = (props: any) => {

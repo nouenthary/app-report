@@ -1,6 +1,4 @@
 import React from 'react';
-import Faker from "faker";
-import moment from "moment";
 import {useTranslation} from "react-i18next";
 import {Table} from "antd";
 import {Container} from "components/utils/Container";
@@ -10,17 +8,17 @@ import {rowSelection} from "../customer";
 
 let data: any[] | undefined = [];
 
-for (let i = 0; i < 20; i++) {
+for (let i = 1; i < 20; i++) {
     data.push({
-        key: Faker.random.number(),
-        no: Faker.random.number(),
-        date: moment(Faker.date.future()).format('L'),
-        time: moment(Faker.date.future()).format('LTS'),
+        key: i,
+        _id: i,
+        date: '11-12-20',
+        time: '4:41:22 PM',
         productType: "Tab",
-        productName: Faker.commerce.productName(),
-        amount: Faker.commerce.price(),
+        productName: "Vivo",
+        amount: 12 + i,
         importType: "Import",
-        staff: Faker.name.firstName()
+        staff: 'Carmel'
     });
 }
 
@@ -30,7 +28,7 @@ const ReportExportDetails = () => {
     const column = [
         {
             title: t('No'),
-            dataIndex: 'no',
+            dataIndex: '_id',
             width: 100,
         },
         {

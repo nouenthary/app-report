@@ -54,7 +54,6 @@ class MainLayout extends React.Component<any, any> {
     }
 
     render() {
-        // let {t} = this.props;
         return (
             <Layout style={Height}>
                 <Sider trigger={null} collapsible collapsed={this.state.collapsed}>

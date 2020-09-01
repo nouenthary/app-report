@@ -4,14 +4,18 @@ import React from "react";
 import {GlobalOutlined} from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
 import styled from 'styled-components';
+import {useWindowSize} from "../utils/useWindowSize";
+import {SMALL_SCREEN} from "utils/constrans";
 
 const ContainerLanguage = styled.span`
     float: right;  
-    margin-top: 25px;
     @media (max-width: 720px){
-        margin-top: 15px;
         margin-right: 20px;
     }
+`;
+
+const Text = styled.span`
+  padding-left: 10px;
 `;
 
 interface TranslateProps {
@@ -33,6 +37,8 @@ const translate: TranslateProps[] = [
 const MenuLanguage = () => {
     const {t} = useTranslation();
 
+    const [width] = useWindowSize();
+
     const handleChange = ({key}: any) => {
         localStorage.setItem('lang', key);
         window.location.reload();
@@ -49,9 +55,10 @@ const MenuLanguage = () => {
     return (
         <ContainerLanguage>
             <Dropdown overlay={menu}>
-            <span className="ant-dropdown-link">
-               <GlobalOutlined style={{fontSize: 20, float: 'right'}}/>
-            </span>
+                <span className="ant-dropdown-link">
+                    <GlobalOutlined style={{fontSize: 16}}/>
+                    {width < SMALL_SCREEN ? null : <Text>{DefaultLanguage === 'kh' ? t('Khmer') : t('English')}</Text>}
+                </span>
             </Dropdown>
         </ContainerLanguage>
     )

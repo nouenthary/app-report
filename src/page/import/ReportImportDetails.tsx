@@ -1,6 +1,4 @@
 import React from 'react';
-import Faker from "faker";
-import moment from "moment";
 import {Table} from "antd";
 import {useTranslation} from "react-i18next";
 import {Container} from "components/utils/Container";
@@ -12,15 +10,15 @@ const data: any[] | undefined = [];
 
 for (let i = 0; i < 25; i++) {
     data.push({
-        key: Faker.random.number(),
-        no: Faker.random.number(),
-        date: moment(Faker.date.future()).format('L'),
-        time: moment(Faker.date.future()).format('LTS'),
+        key: i,
+        no: i,
+        date: '11-11-20',
+        time: '11:54:21 AM',
         productType: "Tab",
-        productName: Faker.commerce.productName(),
-        amount: Faker.commerce.price(),
+        productName: "VIVO",
+        amount: 234 + i,
         importType: "Import",
-        staff: Faker.name.firstName()
+        staff: 'Private'
     });
 }
 

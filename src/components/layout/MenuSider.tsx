@@ -28,6 +28,18 @@ export const menu: MenuProps[] = [
         text: 'Customer',
         link: '/customer',
         icon: <UserOutlined/>
+    },
+    {
+        key: '4',
+        text: 'Product',
+        link: '/product',
+        icon: <UserOutlined/>
+    },
+    {
+        key: '5',
+        text: 'Good Received',
+        link: '/goods-received',
+        icon: <UserOutlined/>
     }
 ];
 

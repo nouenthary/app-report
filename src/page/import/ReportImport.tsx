@@ -1,24 +1,23 @@
 import React from "react";
 import MainLayout from "components/layout/Mainlayout";
-import Faker from "faker";
-import moment from "moment";
 import {Container} from "components/utils/Container";
 import {useTranslation, withTranslation} from "react-i18next";
 import {Link} from 'react-router-dom';
 import TableCustom from "components/Table/TableCustom";
+import {message} from 'antd';
 
 export const url = 'http://localhost:3000';
 const data: any[] | undefined = [];
 
 for (let i = 0; i < 100; i++) {
     data.push({
-        _id: Faker.random.number(),
-        date: moment(Faker.date.future()).format('L'),
-        time: moment(Faker.date.future()).format('LTS'),
-        amount: Faker.commerce.price(),
+        _id: i,
+        date: '11-11-20',
+        time: '11:54:21 AM',
+        amount: 12 + i,
         description: "Note...",
         importType: "Import",
-        staff: Faker.name.firstName()
+        staff: 'Private'
     });
 }
 
@@ -64,14 +63,20 @@ const ReportImportTable = () => {
     ];
 
     const [state, setState] = React.useState([])
+    const [loading, setLoading] = React.useState(false)
 
     const fetchData = () => {
+        setLoading(true);
         fetch(url + '/imports')
             .then(resp => {
                 return resp.json();
             })
             .then(r => {
                 setState(r);
+                setLoading(false);
+            })
+            .catch(error => {
+                message.error(error + '', 50);
             });
     }
 
@@ -83,6 +88,7 @@ const ReportImportTable = () => {
     return (
         <Container height={100}>
             <TableCustom
+                loading={loading}
                 columns={columns}
                 dataSource={state ? state : data}
                 rowKey="_id"

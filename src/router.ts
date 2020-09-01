@@ -6,6 +6,8 @@ import PageCustomer from "page/customer";
 import Page404 from "page/Page404";
 import {MiddlewareRouteProps} from "components/MiddlewareRoute";
 import PageComponent from "./page/test";
+import ProductPage from "./page/product";
+import GoodReceivedPage from "./page/goods_received";
 
 interface RouterType extends MiddlewareRouteProps {
     path: string;
@@ -61,6 +63,20 @@ export const router: RouterType[] = [
         component: PageCustomer,
         middlewares: [
             MiddlewareToken,
+        ]
+    },
+    {
+        path: '/product',
+        component: ProductPage,
+        middlewares: [
+            MiddlewareToken
+        ]
+    },
+    {
+        path: '/goods-received',
+        component: GoodReceivedPage,
+        middlewares: [
+            MiddlewareToken
         ]
     },
     {

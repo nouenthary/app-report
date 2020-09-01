@@ -1,6 +1,10 @@
 import {Method} from "axios";
 
-const base_url: string = 'https://api-clinic.cubetiqs.com/v1/TNA-00013067';
+// const v1 = 'https://api-clinic.cubetiqs.com/v1/TNA-00013067';
+const v2 = 'https://inventory-dev-api.cubetiqs.com/v1/TNA-00160111';
+
+const base_url: string = v2;
+
 
 const bearer: string = 'Bearer ';
 
@@ -11,7 +15,7 @@ export const fetchApi = (url: string, method: Method) => {
         "headers": {
             "accept": "application/json, text/plain, */*",
             "accept-language": "en-US,en;q=0.9",
-            "authorization": bearer + (sessionStorage.getItem('token') ? sessionStorage.getItem('token') : token),
+            "authorization": bearer + (sessionStorage.getItem('token')),
             "sec-fetch-dest": "empty",
             "sec-fetch-mode": "cors",
             "sec-fetch-site": "same-site"
