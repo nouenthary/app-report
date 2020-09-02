@@ -1,10 +1,14 @@
 import {Method} from "axios";
 
 // const v1 = 'https://api-clinic.cubetiqs.com/v1/TNA-00013067';
-const v2 = 'https://inventory-dev-api.cubetiqs.com/v1/TNA-00160111';
+// const v2 = 'https://inventory-dev-api.cubetiqs.com/v1/TNA-00160111';
+const BASE_URL_API: string | undefined = process.env.REACT_APP_BASE_URL;
+const API_VERSION: string = '/v1';
+const TENANT_ID: string = '/TNA-00160111';
 
-const base_url: string = v2;
+const base_url: string = BASE_URL_API + API_VERSION + TENANT_ID;
 
+export const url = process.env.REACT_APP_LOCAL;
 
 const bearer: string = 'Bearer ';
 

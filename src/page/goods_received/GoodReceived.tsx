@@ -3,8 +3,14 @@ import MainLayout from "components/layout/Mainlayout";
 import TableCustom from "components/Table/TableCustom";
 import {fetchApi} from "utils/base_url";
 import {message} from "antd";
+import {GoodsReceive} from "models/GoodsReceive";
 
 const columns = [
+    {
+        key: '_id',
+        dataIndex: '_id',
+        title: 'No',
+    },
     {
         key: 'purchase_number',
         dataIndex: 'purchase_number',
@@ -22,7 +28,7 @@ const columns = [
     },
     {
         key: 'date',
-        dataIndex: 'data',
+        dataIndex: 'date',
         title: 'Date'
     },
     {
@@ -46,38 +52,42 @@ const columns = [
         title: 'Phone'
     },
     {
-        key: 'staff',
-        dataIndex: 'staff',
+        key: 'created_by',
+        dataIndex: 'created_by',
         title: 'Staff'
     }
 ];
 
-interface GoodReceivedType {
-    purchase_number?: string;
-    goods_receive_number?: string;
-    invoice_number?: string;
-    date?: string;
-    amount?: string;
-    credit?: string;
-    supplier?: string;
-    phone?: string;
-    staff?: string;
-}
 
 const GoodReceived = () => {
-    const [state, setState] = React.useState([])
-    const [loading, setLoading] = React.useState(false)
+    const [state, setState] = React.useState<any>([]);
+    const [loading, setLoading] = React.useState(false);
 
     const fetchDateApi = () => {
         setLoading(true)
         fetchApi("/goods-receives", "GET")
             .then(r => {
-                return r.json()
+                return r.json();
             })
             .then(resp => {
-                setState(resp.data)
+                const goodsReceived: GoodsReceive[] = [];
+                resp.data.map((goods: any) => {
+                    return goodsReceived.push({
+                        _id: goods._id,
+                        goods_receive_number: goods.goods_receive_number ? goods.goods_receive_number : 'N/A',
+                        purchase_number: goods.purchase_number ? goods.purchase_number : 'N/A',
+                        invoice_number: goods.invoice_number ? goods.invoice_number : 'N/A',
+                        date: goods.date,
+                        supplier: goods.purchase.supplier.name ? goods.purchase.supplier.name : 'N/A',
+                        phone: goods.purchase.supplier.phone ? goods.purchase.supplier.phone : 'N/A',
+                        credit: goods.credit.normalized,
+                        amount: goods.amount.normalized,
+                        branch: goods.branch.name,
+                        created_by: goods.created_by
+                    })
+                });
+                setState(goodsReceived);
                 setLoading(false);
-                console.log(resp.data[0])
             })
             .catch(error => {
                 message.error(error + '', 50);
@@ -90,7 +100,7 @@ const GoodReceived = () => {
 
     return (
         <MainLayout>
-            <TableCustom columns={columns} loading={loading} dataSoruce={state} rowKey={'_id'}/>
+            <TableCustom columns={columns} loading={loading} dataSource={state} rowKey={'_id'}/>
         </MainLayout>
     )
 }

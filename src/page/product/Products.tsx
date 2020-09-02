@@ -4,8 +4,9 @@ import TableCustom from "components/Table/TableCustom";
 import {useTranslation} from "react-i18next";
 import {fetchApi} from "../../utils/base_url";
 import {message} from "antd";
+import {Product} from "models/Product";
 
-const Product = () => {
+const Products = () => {
     let {t} = useTranslation();
 
     let columns = [
@@ -17,10 +18,7 @@ const Product = () => {
         {
             key: 'product_code',
             dataIndex: 'product_code',
-            title: t('Product Code'),
-            render: (index: any, record: any) => {
-                return record.product_code.barcode
-            }
+            title: t('Product Code')
         },
         {
             key: 'name',
@@ -35,9 +33,6 @@ const Product = () => {
             key: 'category',
             dataIndex: 'category',
             title: t('Category'),
-            render: (index: any, record: any) => {
-                return record.category === null ? "*^^*" : record.category
-            }
         },
         {
             key: 'product_type',
@@ -48,9 +43,6 @@ const Product = () => {
             key: 'tax',
             dataIndex: 'tax',
             title: t('Tax'),
-            render: (index: any, record: any) => {
-                return record.tax.value === null ? "*^^*" : record.tax.value
-            }
         },
         {
             key: 'created_by',
@@ -59,7 +51,7 @@ const Product = () => {
         }
     ];
 
-    const [state, setState] = useState([]);
+    const [state, setState] = useState<Product[]>([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -68,7 +60,19 @@ const Product = () => {
                 return r.json()
             })
             .then(resp => {
-                setState(resp.data)
+                const products: Product[] = [];
+                resp.data.map((product: any) => {
+                    return products.push({
+                        _id: product._id,
+                        name: product.name,
+                        category: product.category ? product.category : 'N/A',
+                        product_code: product.product_code.barcode,
+                        product_type: product.product_type,
+                        tax: product.tax.value,
+                        created_by: product.created_by
+                    })
+                });
+                setState(products)
                 setLoading(false);
             })
             .catch(error => {
@@ -83,4 +87,4 @@ const Product = () => {
     )
 }
 
-export default Product;
+export default Products;

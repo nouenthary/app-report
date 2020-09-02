@@ -8,6 +8,7 @@ import {MiddlewareRouteProps} from "components/MiddlewareRoute";
 import PageComponent from "./page/test";
 import ProductPage from "./page/product";
 import GoodReceivedPage from "./page/goods_received";
+import PurchaseOrderPage from "./page/purchase_order";
 
 interface RouterType extends MiddlewareRouteProps {
     path: string;
@@ -75,6 +76,13 @@ export const router: RouterType[] = [
     {
         path: '/goods-received',
         component: GoodReceivedPage,
+        middlewares: [
+            MiddlewareToken
+        ]
+    },
+    {
+        path: '/purchase_order',
+        component: PurchaseOrderPage,
         middlewares: [
             MiddlewareToken
         ]

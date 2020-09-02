@@ -40,6 +40,12 @@ export const menu: MenuProps[] = [
         text: 'Good Received',
         link: '/goods-received',
         icon: <UserOutlined/>
+    },
+    {
+        key: '6',
+        text: 'Purchase Order',
+        link: '/purchase_order',
+        icon: <UserOutlined/>
     }
 ];
 

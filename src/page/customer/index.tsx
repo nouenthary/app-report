@@ -1,5 +1,5 @@
 import React from 'react';
-import {fetchApi} from "utils/base_url";
+// import {fetchApi} from "utils/base_url";
 import TableCustom from "components/Table/TableCustom";
 import MainLayout from "components/layout/Mainlayout";
 import {withTranslation} from "react-i18next";
@@ -17,27 +17,27 @@ class PageCustomer extends React.Component<any, any> {
     };
 
     componentDidMount(): void {
-        fetchApi('/customers', 'GET')
-            .then((resp) => {
-                return resp.json()
-            })
-            .then((r) => {
-                this.setState({customers: r.data});
-
-                let state: string | any[] = [];
-
-                for (let i = 0; i < r.data.length; i++) {
-                    state.push({
-                        _id: r.data[i]['_id'],
-                        name: r.data[i]['first_name'] + r.data[i]['last_name'],
-                        phone: r.data[i]['phone'],
-                        gender: r.data[i]['gender'],
-                        customer_reference_type: r.data[i]['customer_reference_type'],
-                        staff: r.data[i]['staff']['name']
-                    })
-                }
-                this.setState({dataSource: state});
-            });
+        // fetchApi('/customers', 'GET')
+        //     .then((resp) => {
+        //         return resp.json()
+        //     })
+        //     .then((r) => {
+        //         this.setState({customers: r.data});
+        //
+        //         let state: string | any[] = [];
+        //
+        //         for (let i = 0; i < r.data.length; i++) {
+        //             state.push({
+        //                 _id: r.data[i]['_id'],
+        //                 name: r.data[i]['first_name'] + r.data[i]['last_name'],
+        //                 phone: r.data[i]['phone'],
+        //                 gender: r.data[i]['gender'],
+        //                 customer_reference_type: r.data[i]['customer_reference_type'],
+        //                 staff: r.data[i]['staff']['name']
+        //             })
+        //         }
+        //         this.setState({dataSource: state});
+        //     });
     }
 
     render() {

@@ -5,8 +5,8 @@ import {useTranslation, withTranslation} from "react-i18next";
 import {Link} from 'react-router-dom';
 import TableCustom from "components/Table/TableCustom";
 import {message} from 'antd';
+import {url} from "../../utils/base_url";
 
-export const url = 'http://localhost:3000';
 const data: any[] | undefined = [];
 
 for (let i = 0; i < 100; i++) {
