@@ -3,6 +3,8 @@ import React from 'react';
 import TableCustom from "components/Table/TableCustom";
 import MainLayout from "components/layout/Mainlayout";
 import {withTranslation} from "react-i18next";
+import {url} from "../../utils/base_url";
+import {message} from "antd";
 
 export const rowSelection = {
     onChange: (selectedRowKeys: any, selectedRows: any) => {
@@ -14,6 +16,7 @@ class PageCustomer extends React.Component<any, any> {
 
     state = {
         dataSource: [],
+        columns: []
     };
 
     componentDidMount(): void {
@@ -38,10 +41,22 @@ class PageCustomer extends React.Component<any, any> {
         //         }
         //         this.setState({dataSource: state});
         //     });
+
+        fetch(url + '/customers')
+            .then(resp => {
+                return resp.json();
+            })
+            .then(r => {
+                this.setState({columns: r.columns});
+                console.log(r.columns);
+            })
+            .catch(error => {
+                message.error(error + '', 50);
+            });
     }
 
     render() {
-        let {t} = this.props
+        let {t} = this.props;
         const columns = [
             {
                 key: '_id',
@@ -108,11 +123,12 @@ class PageCustomer extends React.Component<any, any> {
 
         return (
             <MainLayout>
+                {columns &&
                 <TableCustom
                     columns={columns}
                     dataSource={merge}
                     rowKey="_id"
-                />
+                />}
             </MainLayout>
         )
     }
