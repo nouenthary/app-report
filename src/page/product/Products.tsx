@@ -55,9 +55,10 @@ const Products = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true)
         fetchApi("/products", "GET")
             .then(r => {
-                return r.json()
+                return r.json();
             })
             .then(resp => {
                 const products: Product[] = [];
@@ -76,10 +77,10 @@ const Products = () => {
                 setLoading(false);
             })
             .catch(error => {
+                setLoading(false);
                 message.error(error + '', 50);
             });
     }, []);
-
     return (
         <MainLayout>
             <TableCustom columns={columns} dataSource={state} loading={loading}/>
