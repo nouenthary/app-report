@@ -4,47 +4,10 @@ import TableCustom from "components/Table/TableCustom";
 import {fetchApi} from "../../utils/base_url";
 import {message} from "antd";
 import {PurchaseOrder} from "models/PurchaseOrder";
-
-const columns = [
-    {
-        key: '_id',
-        dataIndex: '_id',
-        title: 'No'
-    },
-    {
-        key: 'date',
-        dataIndex: 'date',
-        title: 'Date'
-    },
-    {
-        key: 'type',
-        dataIndex: 'type',
-        title: 'Type'
-    },
-    {
-        key: 'purchase_number',
-        dataIndex: 'purchase_number',
-        title: 'Purchase Number'
-    },
-    {
-        key: 'supplier',
-        dataIndex: 'supplier',
-        title: 'Supplier'
-    },
-    {
-        key: 'phone_number',
-        dataIndex: 'phone_number',
-        title: 'Phone'
-    },
-    {
-        key: 'created_by',
-        dataIndex: 'created_by',
-        title: 'Staff'
-    }
-];
+import {useTranslation} from "react-i18next";
 
 const PurchaseOrders = () => {
-
+    const {t} = useTranslation();
     const [state, setState] = useState<any>([]);
     const [loading, setLoading] = useState(false);
 
@@ -73,6 +36,44 @@ const PurchaseOrders = () => {
                 message.error(error + '', 50);
             });
     }, []);
+
+    const columns = [
+        {
+            key: '_id',
+            dataIndex: '_id',
+            title: t('No')
+        },
+        {
+            key: 'date',
+            dataIndex: 'date',
+            title: t('Date')
+        },
+        {
+            key: 'type',
+            dataIndex: 'type',
+            title: t('Type')
+        },
+        {
+            key: 'purchase_number',
+            dataIndex: 'purchase_number',
+            title: t('Purchase Number')
+        },
+        {
+            key: 'supplier',
+            dataIndex: 'supplier',
+            title: t('Supplier')
+        },
+        {
+            key: 'phone_number',
+            dataIndex: 'phone_number',
+            title: t('Phone')
+        },
+        {
+            key: 'created_by',
+            dataIndex: 'created_by',
+            title: t('Staff')
+        }
+    ];
 
     return (
         <MainLayout>

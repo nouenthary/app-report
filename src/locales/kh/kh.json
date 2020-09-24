@@ -18,5 +18,16 @@
   "Type": "ប្រភេទ",
   "Report Management": "ការគ្រប់គ្រង់របាយការណ៏",
   "Khmer": "ខ្មែរ",
-  "English": "អង់គ្លេស"
+  "English": "អង់គ្លេស",
+  "name": "ឈ្មោះ",
+  "Category": "ប្រភេទ",
+  "Tax": "ពន្ធ",
+  "Product Code": "លេខកូតផលឺតផល",
+  "Auditor": "បុគ្គលិក",
+  "Supplier": "អ្នកផ្គត់ផ្គង់",
+  "Purchase Number": "លេខកូតបញ្ជាទិញ",
+  "Credit": "ឥណទាន",
+  "Invoice Number": "លេខវិក័យប័ត្រ",
+  "GR Number": "ទំនិញដែលបានទទួល",
+  "Print": "បោះពុម្ព"
 }

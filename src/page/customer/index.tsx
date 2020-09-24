@@ -1,9 +1,8 @@
 import React from 'react';
-// import {fetchApi} from "utils/base_url";
 import TableCustom from "components/Table/TableCustom";
 import MainLayout from "components/layout/Mainlayout";
 import {withTranslation} from "react-i18next";
-import {url} from "../../utils/base_url";
+import {fetchApi} from "../../utils/base_url";
 import {message} from "antd";
 
 export const rowSelection = {
@@ -20,39 +19,27 @@ class PageCustomer extends React.Component<any, any> {
     };
 
     componentDidMount(): void {
-        // fetchApi('/customers', 'GET')
-        //     .then((resp) => {
-        //         return resp.json()
-        //     })
-        //     .then((r) => {
-        //         this.setState({customers: r.data});
-        //
-        //         let state: string | any[] = [];
-        //
-        //         for (let i = 0; i < r.data.length; i++) {
-        //             state.push({
-        //                 _id: r.data[i]['_id'],
-        //                 name: r.data[i]['first_name'] + r.data[i]['last_name'],
-        //                 phone: r.data[i]['phone'],
-        //                 gender: r.data[i]['gender'],
-        //                 customer_reference_type: r.data[i]['customer_reference_type'],
-        //                 staff: r.data[i]['staff']['name']
-        //             })
-        //         }
-        //         this.setState({dataSource: state});
-        //     });
+        fetchApi('/customers', 'GET')
+            .then((resp) => {
+                return resp.json()
+            })
+            .then((r) => {
+                this.setState({customers: r.data});
 
-        fetch(url + '/customers')
-            .then(resp => {
-                return resp.json();
-            })
-            .then(r => {
-                this.setState({columns: r.columns});
-                console.log(r.columns);
-            })
-            .catch(error => {
-                message.error(error + '', 50);
-            });
+                let state: string | any[] = [];
+
+                for (let i = 0; i < r.data.length; i++) {
+                    state.push({
+                        _id: r.data[i]['_id'],
+                        name: r.data[i]['first_name'] + r.data[i]['last_name'],
+                        phone: r.data[i]['phone'],
+                        gender: r.data[i]['gender'],
+                        customer_reference_type: r.data[i]['customer_reference_type'],
+                        staff: r.data[i]['staff']['name']
+                    })
+                }
+                this.setState({dataSource: state});
+            }).catch((error) => message.error(error + '', 50));
     }
 
     render() {
@@ -106,27 +93,12 @@ class PageCustomer extends React.Component<any, any> {
             },
         ];
 
-        const data: any = [];
-        for (let i = 1; i < 100; i++) {
-            data.push({
-                _id: i,
-                name: "admin" + i,
-                phone: "123456789" + i,
-                gender: "male" + i,
-                customer_reference_type: 'customer' + i,
-                staff: "admin" + i
-            })
-        }
-
-        const merge = [...this.state.dataSource, ...data];
-
-
         return (
             <MainLayout>
                 {columns &&
                 <TableCustom
                     columns={columns}
-                    dataSource={merge}
+                    dataSource={this.state.dataSource}
                     rowKey="_id"
                 />}
             </MainLayout>

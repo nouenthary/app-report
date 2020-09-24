@@ -8,6 +8,7 @@ import ReportDesigned from "./ReportDesigned";
 import {Menu, Dropdown, Button, Space} from 'antd';
 import {SMALL_SCREEN} from "../../utils/constrans";
 import ExportCSV from "./ExportCSV";
+import {useTranslation} from "react-i18next";
 
 const TableHidden: string = 'none';
 
@@ -20,6 +21,7 @@ interface ExportDocument {
 }
 
 const ExportPrint = (props: ExportDocument) => {
+    let {t} = useTranslation();
     let componentRef: any = useRef(null);
     let ButtonPrint: boolean = props.buttonPrint === false ? props.buttonPrint : true;
     let ButtonExcel: boolean = props.buttonExcel === false ? props.buttonExcel : true;
@@ -57,7 +59,7 @@ const ExportPrint = (props: ExportDocument) => {
                             type={"default"}
                             size={width < SMALL_SCREEN ? "small" : "middle"}
                         >
-                            <PrinterOutlined/>{width < SMALL_SCREEN ? null : 'Print'}
+                            <PrinterOutlined/>{width < SMALL_SCREEN ? null : t('Print')}
                         </Button>
                     }
                     content={() => componentRef}
@@ -67,7 +69,7 @@ const ExportPrint = (props: ExportDocument) => {
                     <Button type={"primary"}
                             size={width < SMALL_SCREEN ? "small" : "middle"}
                     >
-                        <ExportOutlined/>{width < SMALL_SCREEN ? null : 'Export'}
+                        <ExportOutlined/>{width < SMALL_SCREEN ? null : t('Export')}
                     </Button>
                 </Dropdown>
             </Space>

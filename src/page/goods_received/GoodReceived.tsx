@@ -4,62 +4,10 @@ import TableCustom from "components/Table/TableCustom";
 import {fetchApi} from "utils/base_url";
 import {message} from "antd";
 import {GoodsReceive} from "models/GoodsReceive";
-
-const columns = [
-    {
-        key: '_id',
-        dataIndex: '_id',
-        title: 'No',
-    },
-    {
-        key: 'purchase_number',
-        dataIndex: 'purchase_number',
-        title: 'Purchase Number',
-    },
-    {
-        key: 'goods_receive_number',
-        dataIndex: 'goods_receive_number',
-        title: 'GR Number'
-    },
-    {
-        key: 'invoice_number',
-        dataIndex: 'invoice_number',
-        title: 'Invoice Number'
-    },
-    {
-        key: 'date',
-        dataIndex: 'date',
-        title: 'Date'
-    },
-    {
-        key: 'amount',
-        dataIndex: 'amount',
-        title: 'Amount'
-    },
-    {
-        key: 'credit',
-        dataIndex: 'credit',
-        title: 'Credit'
-    },
-    {
-        key: 'supplier',
-        dataIndex: 'supplier',
-        title: 'Supplier'
-    },
-    {
-        key: 'phone',
-        dataIndex: 'phone',
-        title: 'Phone'
-    },
-    {
-        key: 'created_by',
-        dataIndex: 'created_by',
-        title: 'Staff'
-    }
-];
-
+import {useTranslation} from "react-i18next";
 
 const GoodReceived = () => {
+    const {t} = useTranslation();
     const [state, setState] = React.useState<any>([]);
     const [loading, setLoading] = React.useState(false);
 
@@ -97,6 +45,59 @@ const GoodReceived = () => {
     React.useEffect(() => {
         fetchDateApi()
     }, []);
+
+    const columns = [
+        {
+            key: '_id',
+            dataIndex: '_id',
+            title: t('No'),
+        },
+        {
+            key: 'purchase_number',
+            dataIndex: 'purchase_number',
+            title: t('Purchase Number'),
+        },
+        {
+            key: 'goods_receive_number',
+            dataIndex: 'goods_receive_number',
+            title: t('GR Number')
+        },
+        {
+            key: 'invoice_number',
+            dataIndex: 'invoice_number',
+            title: t('Invoice Number')
+        },
+        {
+            key: 'date',
+            dataIndex: 'date',
+            title: t('Date')
+        },
+        {
+            key: 'amount',
+            dataIndex: 'amount',
+            title: t('Amount')
+        },
+        {
+            key: 'credit',
+            dataIndex: 'credit',
+            title: t('Credit')
+        },
+        {
+            key: 'supplier',
+            dataIndex: 'supplier',
+            title: t('Supplier')
+        },
+        {
+            key: 'phone',
+            dataIndex: 'phone',
+            title: t('Phone')
+        },
+        {
+            key: 'created_by',
+            dataIndex: 'created_by',
+            title: t('Staff')
+        }
+    ];
 
     return (
         <MainLayout>

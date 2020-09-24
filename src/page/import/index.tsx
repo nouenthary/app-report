@@ -15,7 +15,6 @@ const PageImport = (props: any) => {
         }
     });
 
-    // return   <ReportImport/>
     const token: any = query.parse(props.location.search);
 
     if (token.token != null) {

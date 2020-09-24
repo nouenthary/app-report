@@ -6,21 +6,15 @@ import DrawerMenu from "./DrawerMenu";
 import styled from "styled-components";
 import {withTranslation} from "react-i18next";
 import MenuLanguage from "./MenuTranslate";
+import {ThemeContext} from "context/ThemeProvider";
 
 const {Header, Sider, Content} = Layout;
-
-// const Title = styled.span`
-//     padding-left: 20px;
-//
-//     @media (max-width: 720px){
-//         display: none;
-//     }
-// `;
 
 const MainTitle = styled.h1`
   text-align: center;
   color: #ffffff;
 `;
+
 const Height = {
     height: '100vh'
 };
@@ -31,12 +25,12 @@ const ContentStyle = {
     minHeight: 280,
 };
 
-
 class MainLayout extends React.Component<any, any> {
     state = {
         collapsed: false,
         visible: false
     };
+    static contextType = ThemeContext;
 
     toggle = () => {
         this.setState({
@@ -54,6 +48,12 @@ class MainLayout extends React.Component<any, any> {
     }
 
     render() {
+        const {theme} = this.context
+        const HeaderStyle = {
+            paddingLeft: 15,
+            color: theme === 'light' ? '#001529' : '#fff',
+            background: theme === 'light' ? '#fff' : '#001529'
+        }
         return (
             <Layout style={Height}>
                 <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
@@ -65,26 +65,20 @@ class MainLayout extends React.Component<any, any> {
                     <MenuSider/>
                 </Sider>
                 <Layout className="site-layout">
-                    <Header className="site-layout-background" style={{paddingLeft: 15}}>
+                    <Header className="site-layout-background" style={HeaderStyle}>
                         <span id="icon-drawer-big" style={{fontSize: 20}}>
                             {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                                 className: 'trigger',
-                                onClick: () => this.showDrawer()   // onClick: this.toggle
+                                onClick: () => this.showDrawer()
                             })}
                         </span>
-
-                        {/*<span id="icon-drawer-small" onClick={() => this.setState({visible: true})}>*/}
-                        {/*    <MenuUnfoldOutlined/>*/}
-                        {/*</span>*/}
-
-                        {/*<Title>{t("Report Management")}</Title>*/}
                         <MenuLanguage/>
                     </Header>
                     <Content style={ContentStyle}>
                         {this.props.children}
-                        <DrawerMenu visible={this.state.visible} onClose={this.onClose}/>
                     </Content>
                 </Layout>
+                <DrawerMenu visible={this.state.visible} onClose={this.onClose}/>
             </Layout>
         );
     }
