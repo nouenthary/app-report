@@ -10,6 +10,9 @@ import ProductPage from "./page/product";
 import GoodReceivedPage from "./page/goods_received";
 import PurchaseOrderPage from "./page/purchase_order";
 import LoginPage from "./page/auth/loginPage";
+import CartView from "./page/test/CartView";
+import TableColumn from "./page/test/TableColumn";
+import TableApi from "./page/test/TableApi";
 
 interface RouterType extends MiddlewareRouteProps {
     path: string;
@@ -91,6 +94,21 @@ export const router: RouterType[] = [
     {
         path: "/test",
         component: PageComponent,
+        middlewares: []
+    },
+    {
+        path: "/TableApi",
+        component: TableApi,
+        middlewares: []
+    },
+    {
+        path: "/TableColumn",
+        component: TableColumn,
+        middlewares: []
+    },
+    {
+        path: "/chart",
+        component: CartView,
         middlewares: []
     },
     {

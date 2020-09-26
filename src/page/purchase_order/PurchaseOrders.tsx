@@ -41,37 +41,44 @@ const PurchaseOrders = () => {
         {
             key: '_id',
             dataIndex: '_id',
-            title: t('No')
+            title: t('No'),
+            width: 200
         },
         {
             key: 'date',
             dataIndex: 'date',
-            title: t('Date')
+            title: t('Date'),
+            width: 200
         },
         {
             key: 'type',
             dataIndex: 'type',
-            title: t('Type')
+            title: t('Type'),
+            width: 200
         },
         {
             key: 'purchase_number',
             dataIndex: 'purchase_number',
-            title: t('Purchase Number')
+            title: t('Purchase Number'),
+            width: 200
         },
         {
             key: 'supplier',
             dataIndex: 'supplier',
-            title: t('Supplier')
+            title: t('Supplier'),
+            width: 200
         },
         {
             key: 'phone_number',
             dataIndex: 'phone_number',
-            title: t('Phone')
+            title: t('Phone'),
+            width: 200
         },
         {
             key: 'created_by',
             dataIndex: 'created_by',
-            title: t('Staff')
+            title: t('Staff'),
+            width: 200
         }
     ];
 

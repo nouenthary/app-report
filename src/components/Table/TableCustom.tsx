@@ -28,6 +28,7 @@ class TableCustom extends React.Component<any, any> {
         initialColumns: [],
         width: 0,
         height: 0,
+        loading: false
     };
 
     components = {
@@ -131,8 +132,11 @@ class TableCustom extends React.Component<any, any> {
     };
 
     handleMenuClick = (e: any) => {
-        if (e.key === this.state.columns.slice(-1).pop()['dataIndex']) {
-            this.setState({visible: false});
+        try {
+            if (e.key === this.state.columns.slice(-1).pop()['dataIndex']) {
+                this.setState({visible: false});
+            }
+        } catch (e) {
         }
     };
 
@@ -155,35 +159,37 @@ class TableCustom extends React.Component<any, any> {
         this.setState({columns: filtered, checkedColumns: checkedColumns});
     };
 
-
     render() {
-        const columns = this.state.columns.map((col: any, index: any) => (
-            {
-                ...col,
-                onHeaderCell: (column: { width: any; }) => ({
-                    width: column.width,
-                    onResize: this.handleResize(index),
-                }),
-                ...col['isSearching'] ? this.getColumnSearchProps(col['dataIndex']) : '',
-            }
-        ));
+        const columns = this.state.columns ?
+            this.state.columns.map((col: any, index: any) => (
+                {
+                    ...col,
+                    onHeaderCell: (column: { width: any; }) => ({
+                        width: column.width,
+                        onResize: this.handleResize(index),
+                    }),
+                    ...col['isSearching'] ? this.getColumnSearchProps(col['dataIndex']) : ''
+                }
+            )) : null;
 
-        const menu = (
-            <Menu onClick={this.handleMenuClick}>
-                {this.props.columns.map((col: any) => (
-                    <Menu.Item key={col.dataIndex}>
-                        <Checkbox
-                            id={col.dataIndex}
-                            key={col.dataIndex}
-                            onChange={this.handleChangeCheck}
-                            defaultChecked={true}
-                        >
-                            {col.title}
-                        </Checkbox>
-                    </Menu.Item>
-                ))}
-            </Menu>
-        );
+        let menu = this.props.columns ? (
+                <Menu onClick={this.handleMenuClick}>
+                    {this.props.columns.map((col: any) => (
+                        <Menu.Item key={col.dataIndex}>
+                            <Checkbox
+                                id={col.dataIndex}
+                                key={col.dataIndex}
+                                onChange={this.handleChangeCheck}
+                                defaultChecked={true}
+                            >
+                                {col.title}
+                            </Checkbox>
+                        </Menu.Item>
+                    ))}
+                </Menu>
+            )
+            : null;
+
 
         const rowSelection = {
             onChange: (selectedRowKeys: any, selectedRows: any) => {
@@ -198,7 +204,7 @@ class TableCustom extends React.Component<any, any> {
                 <CardHeader>
                     <RowButtonPrint columns={this.state.columns}
                                     dataSource={this.state.dataSelected ? this.state.dataSelected : this.props.dataSource}/>
-                    <Dropdown
+                    {menu && <Dropdown
                         overlay={menu}
                         placement="bottomRight"
                         arrow
@@ -210,6 +216,7 @@ class TableCustom extends React.Component<any, any> {
                             <SettingOutlined style={{float: 'right', marginTop: 10}}/>
                         }
                     </Dropdown>
+                    }
                 </CardHeader>
 
                 <Container>
@@ -219,7 +226,10 @@ class TableCustom extends React.Component<any, any> {
                         bordered
                         components={this.components}
                         columns={columns}
-                        pagination={{pageSize: PAGINATION}}
+                        pagination={{
+                            defaultPageSize: PAGINATION,
+                            pageSizeOptions: ['10', '20', '30', '40', '50', '100', 'All']
+                        }}
                         rowSelection={{
                             ...rowSelection
                         }}

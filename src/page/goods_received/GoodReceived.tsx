@@ -51,51 +51,61 @@ const GoodReceived = () => {
             key: '_id',
             dataIndex: '_id',
             title: t('No'),
+            width: 200
         },
         {
             key: 'purchase_number',
             dataIndex: 'purchase_number',
             title: t('Purchase Number'),
+            width: 200
         },
         {
             key: 'goods_receive_number',
             dataIndex: 'goods_receive_number',
-            title: t('GR Number')
+            title: t('GR Number'),
+            width: 200
         },
         {
             key: 'invoice_number',
             dataIndex: 'invoice_number',
-            title: t('Invoice Number')
+            title: t('Invoice Number'),
+            width: 200
         },
         {
             key: 'date',
             dataIndex: 'date',
-            title: t('Date')
+            title: t('Date'),
+            width: 200
         },
         {
             key: 'amount',
             dataIndex: 'amount',
-            title: t('Amount')
+            title: t('Amount'),
+            width: 200
         },
         {
             key: 'credit',
             dataIndex: 'credit',
-            title: t('Credit')
+            title: t('Credit'),
+            width: 200
         },
         {
             key: 'supplier',
             dataIndex: 'supplier',
-            title: t('Supplier')
+            title: t('Supplier'),
+            width: 200
         },
         {
             key: 'phone',
             dataIndex: 'phone',
-            title: t('Phone')
+            title: t('Phone'),
+            width: 200
         },
         {
             key: 'created_by',
             dataIndex: 'created_by',
-            title: t('Staff')
+            title: t('Staff'),
+            width: 200
         }
     ];
 

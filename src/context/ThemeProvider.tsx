@@ -17,7 +17,7 @@ export const ThemeProvider = ({children}: any) => {
     React.useEffect(() => {
         const currentTheme = primaryTheme;
         setTheme(currentTheme);
-        sessionStorage.setItem('theme', currentTheme);
+        localStorage.setItem('theme', primaryTheme);
     }, []);
 
 

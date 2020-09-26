@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
+    "@antv/data-set": "^0.11.7",
     "@types/antd": "^1.0.0",
     "@types/pdfmake": "^0.1.14",
     "@types/react-highlight-words": "^0.16.1",
@@ -14,6 +15,7 @@
     "@types/uuid": "^8.3.0",
     "antd": "^4.5.2",
     "axios": "^0.20.0",
+    "bizcharts": "^4.0.14",
     "dotenv": "^8.2.0",
     "enhance-antd-table": "^1.0.2-f",
     "i18next": "^19.7.0",

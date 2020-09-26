@@ -13,12 +13,14 @@ const Products = () => {
         {
             key: '_id',
             dataIndex: '_id',
-            title: t('No')
+            title: t('No'),
+            width: 200
         },
         {
             key: 'product_code',
             dataIndex: 'product_code',
-            title: t('Product Code')
+            title: t('Product Code'),
+            width: 200
         },
         {
             key: 'name',
@@ -28,26 +30,31 @@ const Products = () => {
             sorter: (row1: { name: string }, row2: { name: string }) => {
                 return row1.name.localeCompare(row2.name)
             },
+            width: 200
         },
         {
             key: 'category',
             dataIndex: 'category',
             title: t('Category'),
+            width: 200
         },
         {
             key: 'product_type',
             dataIndex: 'product_type',
-            title: t('Product Type')
+            title: t('Product Type'),
+            width: 200
         },
         {
             key: 'tax',
             dataIndex: 'tax',
             title: t('Tax'),
+            width: 200
         },
         {
             key: 'created_by',
             dataIndex: 'created_by',
-            title: t('Auditor')
+            title: t('Auditor'),
+            width: 200
         }
     ];
 

@@ -27,3 +27,19 @@ export const checkDataSource = (obj: any) => {
     }
     return data
 }
+
+export const generatorForTable = (response: any) => {
+    let columns, data: never[] = [];
+    if (typeof (response) !== "undefined") {
+        if (typeof (response.tableConfig) !== "undefined") {
+            columns = response.tableConfig.columnConfigs.mappings;
+            data = response.data;
+        } else if (typeof (response.data) !== "undefined") {
+            columns = generateColumns(response.data[0]);
+            data = response.data;
+        } else if (typeof (response.mappings) !== "undefined") {
+            columns = response.mappings;
+        }
+    }
+    return {columns, data};
+}

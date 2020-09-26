@@ -1,22 +1,20 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import MainLayout from "components/layout/Mainlayout";
 import {FETCH_DATA_API} from "./service";
-import MasterTable from "components/Table/MasterTable";
 import {generatorForTable} from "components/Table/TableFunction";
+import MasterTable from "components/Table/MasterTable";
 
-const PageComponent = () => {
+const TableColumn = () => {
     const [state, setState] = useState<any>({
         columns: [],
-        data: []
+        data: [],
     });
 
-    React.useEffect(() => {
-        FETCH_DATA_API('/users/all')
+    useEffect(() => {
+        FETCH_DATA_API('/users/data')
             .then((response) => {
-                if (response) {
-                    const {columns, data} = generatorForTable(response);
-                    setState({data, columns});
-                }
+                const {data, columns} = generatorForTable(response);
+                setState({data, columns});
             })
     }, []);
 
@@ -27,4 +25,4 @@ const PageComponent = () => {
     )
 }
 
-export default PageComponent;
+export default TableColumn;
