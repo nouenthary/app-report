@@ -15,11 +15,9 @@ export const ThemeProvider = ({children}: any) => {
         secondaryTheme
     );
     React.useEffect(() => {
-        const currentTheme = primaryTheme;
-        setTheme(currentTheme);
+        setTheme(primaryTheme);
         localStorage.setItem('theme', primaryTheme);
     }, []);
-
 
     return (
         <ThemeContext.Provider value={{theme, setTheme}}>
